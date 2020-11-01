@@ -47,8 +47,8 @@ public class Compte extends GenericEntity<Long, Compte> {
 	public static final String TYPE = "type";
 	public static final String PORTEFEUILLE = "portefeuille";
 	public static final String PORTEFEUILLE_PREFIX = PORTEFEUILLE + ".";
-	public static final String PORTEFEUILLE_NAME_SORT = PORTEFEUILLE_PREFIX + Portefeuille.NAME_SORT;
-	public static final String PORTEFEUILLE_NAME = PORTEFEUILLE_PREFIX + Portefeuille.NAME;
+	public static final String PORTEFEUILLE_NOM_SORT = PORTEFEUILLE_PREFIX + Portefeuille.NOM_SORT;
+	public static final String PORTEFEUILLE_NOM = PORTEFEUILLE_PREFIX + Portefeuille.NOM;
 
 	@Id
 	@DocumentId
@@ -73,13 +73,7 @@ public class Compte extends GenericEntity<Long, Compte> {
 	private SortedSet<Operation> operations;
 
 	@Field(name = PORTEFEUILLE, bridge = @FieldBridge(impl = GenericEntityIdFieldBridge.class))
-	@IndexedEmbedded(
-		prefix = PORTEFEUILLE_PREFIX,
-		includePaths = {
-			Portefeuille.NAME,
-			Portefeuille.NAME_SORT
-		}
-	)
+	@IndexedEmbedded(prefix = PORTEFEUILLE_PREFIX)
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Portefeuille portefeuille;  
 	

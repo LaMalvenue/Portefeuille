@@ -35,7 +35,7 @@ public enum PortefeuilleSort implements ISort<SortField> {
 			return ImmutableList.of(
 				SortUtils.luceneSortField(
 					this, sortOrder, SortField.Type.STRING,
-					Portefeuille.NAME_SORT
+					Portefeuille.NOM_SORT
 				)	
 			);
 		}

@@ -36,19 +36,19 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 
 	private static final long serialVersionUID = -1482204779794633259L;
 
-	public static final String NAME = "name";
-	public static final String NAME_SORT = "nameSort";
+	public static final String NOM = "nom";
+	public static final String NOM_SORT = "nomSort";
 
 	@Id
 	@DocumentId
 	@GeneratedValue
 	private Long id;
 
-	@Field(name = NAME, analyzer = @Analyzer(definition = HibernateSearchAnalyzer.TEXT_STEMMING))
-	@Field(name = NAME_SORT, normalizer = @Normalizer(definition = HibernateSearchNormalizer.TEXT))	
-	@SortableField(forField = NAME_SORT)
+	@Field(name = NOM, analyzer = @Analyzer(definition = HibernateSearchAnalyzer.TEXT_STEMMING))
+	@Field(name = NOM_SORT, normalizer = @Normalizer(definition = HibernateSearchNormalizer.TEXT))	
+	@SortableField(forField = NOM_SORT)
 	@Basic(optional = false)
-	private String name;
+	private String nom;
 
 	@OneToMany(mappedBy = "portefeuille", fetch = FetchType.LAZY, orphanRemoval = true)
 	@SortComparator(CompteComparator.class)
@@ -68,12 +68,12 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNom() {
+		return nom;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	public SortedSet<Compte> getComptes() {

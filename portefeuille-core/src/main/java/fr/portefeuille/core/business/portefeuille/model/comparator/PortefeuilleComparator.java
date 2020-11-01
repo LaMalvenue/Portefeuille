@@ -19,7 +19,7 @@ public class PortefeuilleComparator extends AbstractGenericEntityComparator<Long
 	@Override
 	protected int compareNotNullObjects(Portefeuille left, Portefeuille right) {
 		int order = ComparisonChain.start()
-			.compare(left.getName(), right.getName())
+			.compare(left.getNom(), right.getNom())
 			.result();
 		if (order == 0) {
 			order = super.compareNotNullObjects(left, right);
