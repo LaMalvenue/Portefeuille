@@ -3,6 +3,7 @@ package fr.portefeuille.core.business.operation.model;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,6 +19,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Normalizer;
 import org.hibernate.search.annotations.SortableField;
 import org.iglooproject.commons.util.CloneUtils;
@@ -27,9 +29,9 @@ import org.iglooproject.jpa.search.util.HibernateSearchNormalizer;
 
 import fr.portefeuille.core.business.compte.model.Compte;
 import fr.portefeuille.core.business.operation.model.atomic.Categorie;
-import fr.portefeuille.core.business.operation.model.atomic.Mois;
 import fr.portefeuille.core.business.operation.model.atomic.Statut;
 import fr.portefeuille.core.business.operation.model.atomic.TypeOperation;
+import fr.portefeuille.core.business.operation.model.embeddable.OperationBudgetAffecte;
 
 @Indexed
 @Entity
@@ -44,7 +46,11 @@ public class Operation extends GenericEntity <Long, Operation> {
 	public static final String CATEGORIE = "categorie";
 	public static final String TYPE_OPERATION = "typeOperation";
 	public static final String STATUT = "statut";
-	public static final String MOIS = "mois";
+	
+	public static final String BUDGET_AFFECTE = "budgetAffecte";
+	public static final String BUDGET_AFFECTE_PREFIX = BUDGET_AFFECTE + ".";
+	public static final String BUDGET_AFFECTE_MONTH = BUDGET_AFFECTE_PREFIX + OperationBudgetAffecte.MOIS;
+	public static final String BUDGET_AFFECTE_YEAR = BUDGET_AFFECTE_PREFIX + OperationBudgetAffecte.ANNEE;
 	
 	public static final String COMPTE = "compte";
 	public static final String COMPTE_PREFIX = COMPTE + ".";
@@ -86,10 +92,9 @@ public class Operation extends GenericEntity <Long, Operation> {
 	@Enumerated(EnumType.STRING)
 	private Statut statut;
 
-	@Field(name = MOIS)
-	@Basic(optional = false)
-	@Enumerated(EnumType.STRING)
-	private Mois budgetAffecte;
+	@Embedded
+	@IndexedEmbedded(prefix = BUDGET_AFFECTE_PREFIX)
+	private OperationBudgetAffecte budgetAffecte = new OperationBudgetAffecte();
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Compte compte;
@@ -152,11 +157,14 @@ public class Operation extends GenericEntity <Long, Operation> {
 		this.statut = statut;
 	}
 
-	public Mois getBudgetAffecte() {
+	public OperationBudgetAffecte getBudgetAffecte() {
+		if (budgetAffecte == null) {
+			budgetAffecte = new OperationBudgetAffecte();
+		}
 		return budgetAffecte;
 	}
 
-	public void setBudgetAffecte(Mois budgetAffecte) {
+	public void setBudgetAffecte(OperationBudgetAffecte budgetAffecte) {
 		this.budgetAffecte = budgetAffecte;
 	}
 
