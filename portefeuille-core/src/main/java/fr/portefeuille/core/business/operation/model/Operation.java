@@ -62,7 +62,7 @@ public class Operation extends GenericEntity <Long, Operation> {
 	@Basic(optional = false)
 	private double montant;
 
-	@Basic 
+	@Basic(optional = false)
 	@Temporal(TemporalType.DATE)	
 	@Field(name = DATE)
 	@SortableField(forField = DATE)
