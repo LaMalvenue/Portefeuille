@@ -38,4 +38,8 @@ public class CompteDataProvider extends AbstractSearchQueryDataProvider<Compte, 
 			.sort(sortModel.getObject());
 	}
 
+	public CompositeSortModel<CompteSort> getSortModel() {
+		return sortModel;
+	}
+
 }

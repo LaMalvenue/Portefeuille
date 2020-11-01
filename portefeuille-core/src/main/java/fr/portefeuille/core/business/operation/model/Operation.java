@@ -3,7 +3,6 @@ package fr.portefeuille.core.business.operation.model;
 import java.util.Date;
 
 import javax.persistence.Basic;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,7 +18,6 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Normalizer;
 import org.hibernate.search.annotations.SortableField;
 import org.iglooproject.commons.util.CloneUtils;
@@ -31,7 +29,6 @@ import fr.portefeuille.core.business.compte.model.Compte;
 import fr.portefeuille.core.business.operation.model.atomic.Categorie;
 import fr.portefeuille.core.business.operation.model.atomic.Statut;
 import fr.portefeuille.core.business.operation.model.atomic.TypeOperation;
-import fr.portefeuille.core.business.operation.model.embeddable.OperationBudgetAffecte;
 
 @Indexed
 @Entity
@@ -46,12 +43,7 @@ public class Operation extends GenericEntity <Long, Operation> {
 	public static final String CATEGORIE = "categorie";
 	public static final String TYPE_OPERATION = "typeOperation";
 	public static final String STATUT = "statut";
-	
 	public static final String BUDGET_AFFECTE = "budgetAffecte";
-	public static final String BUDGET_AFFECTE_PREFIX = BUDGET_AFFECTE + ".";
-	public static final String BUDGET_AFFECTE_MONTH = BUDGET_AFFECTE_PREFIX + OperationBudgetAffecte.MOIS;
-	public static final String BUDGET_AFFECTE_YEAR = BUDGET_AFFECTE_PREFIX + OperationBudgetAffecte.ANNEE;
-	
 	public static final String COMPTE = "compte";
 	public static final String COMPTE_PREFIX = COMPTE + ".";
 	public static final String COMPTE_LABEL_SORT = COMPTE_PREFIX + Compte.LABEL_SORT;
@@ -72,13 +64,13 @@ public class Operation extends GenericEntity <Long, Operation> {
 	private double montant;
 
 	@Basic(optional = false)
-	@Temporal(TemporalType.DATE)	
+	@Temporal(TemporalType.DATE)
 	@Field(name = DATE)
 	@SortableField(forField = DATE)
 	private Date date;
 
 	@Field(name = CATEGORIE)
-	@Basic(optional = false)
+	@Basic
 	@Enumerated(EnumType.STRING)
 	private Categorie categorie;
 
@@ -92,9 +84,11 @@ public class Operation extends GenericEntity <Long, Operation> {
 	@Enumerated(EnumType.STRING)
 	private Statut statut;
 
-	@Embedded
-	@IndexedEmbedded(prefix = BUDGET_AFFECTE_PREFIX)
-	private OperationBudgetAffecte budgetAffecte = new OperationBudgetAffecte();
+	@Basic(optional = false)
+	@Temporal(TemporalType.DATE)
+	@Field(name = BUDGET_AFFECTE)
+	@SortableField(forField = BUDGET_AFFECTE)
+	private Date budgetAffecte;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Compte compte;
@@ -157,14 +151,11 @@ public class Operation extends GenericEntity <Long, Operation> {
 		this.statut = statut;
 	}
 
-	public OperationBudgetAffecte getBudgetAffecte() {
-		if (budgetAffecte == null) {
-			budgetAffecte = new OperationBudgetAffecte();
-		}
+	public Date getBudgetAffecte() {
 		return budgetAffecte;
 	}
 
-	public void setBudgetAffecte(OperationBudgetAffecte budgetAffecte) {
+	public void setBudgetAffecte(Date budgetAffecte) {
 		this.budgetAffecte = budgetAffecte;
 	}
 

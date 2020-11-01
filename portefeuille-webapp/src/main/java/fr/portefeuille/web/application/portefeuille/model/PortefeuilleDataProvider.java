@@ -20,7 +20,7 @@ public class PortefeuilleDataProvider extends AbstractSearchQueryDataProvider<Po
 	private final CompositeSortModel<PortefeuilleSort> sortModel = new CompositeSortModel<>(
 		CompositingStrategy.LAST_ONLY,
 		ImmutableMap.of(
-				PortefeuilleSort.NAME, PortefeuilleSort.NAME.getDefaultOrder()
+				PortefeuilleSort.NOM, PortefeuilleSort.NOM.getDefaultOrder()
 		),
 		ImmutableMap.of(
 				PortefeuilleSort.ID, PortefeuilleSort.ID.getDefaultOrder()
@@ -36,6 +36,10 @@ public class PortefeuilleDataProvider extends AbstractSearchQueryDataProvider<Po
 	protected ISearchQuery<Portefeuille, PortefeuilleSort> getSearchQuery() {
 		return createSearchQuery(IPortefeuilleSearchQuery.class)
 			.sort(sortModel.getObject());
+	}
+
+	public CompositeSortModel<PortefeuilleSort> getSortModel() {
+		return sortModel;
 	}
 
 }

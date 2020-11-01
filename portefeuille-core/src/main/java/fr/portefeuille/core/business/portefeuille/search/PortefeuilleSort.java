@@ -29,7 +29,7 @@ public enum PortefeuilleSort implements ISort<SortField> {
 		}
 	},
 
-	NAME {
+	NOM {
 		@Override
 		public List<SortField> getSortFields(SortOrder sortOrder) {
 			return ImmutableList.of(

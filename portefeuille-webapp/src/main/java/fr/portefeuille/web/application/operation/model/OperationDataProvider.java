@@ -38,4 +38,8 @@ public class OperationDataProvider extends AbstractSearchQueryDataProvider<Opera
 			.sort(sortModel.getObject());
 	}
 
+	public CompositeSortModel<OperationSort> getSortModel() {
+		return sortModel;
+	}
+
 }

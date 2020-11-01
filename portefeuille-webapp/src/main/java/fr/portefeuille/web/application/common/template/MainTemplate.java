@@ -17,20 +17,6 @@ import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import fr.portefeuille.core.security.model.PortefeuilleAuthorityConstants;
-import fr.portefeuille.core.security.service.IPortefeuilleAuthenticationService;
-import fr.portefeuille.core.security.service.ISecurityManagementService;
-import fr.portefeuille.web.application.PortefeuilleApplication;
-import fr.portefeuille.web.application.PortefeuilleSession;
-import fr.portefeuille.web.application.administration.page.AdministrationAnnouncementListPage;
-import fr.portefeuille.web.application.administration.page.AdministrationBasicUserListPage;
-import fr.portefeuille.web.application.administration.page.AdministrationTechnicalUserListPage;
-import fr.portefeuille.web.application.administration.page.AdministrationUserGroupListPage;
-import fr.portefeuille.web.application.common.component.AnnouncementsPanel;
-import fr.portefeuille.web.application.common.template.theme.PortefeuilleApplicationTheme;
-import fr.portefeuille.web.application.common.template.theme.common.BootstrapBreakpointPanel;
-import fr.portefeuille.web.application.referencedata.page.ReferenceDataPage;
-import fr.portefeuille.web.application.security.password.page.SecurityPasswordExpirationPage;
 import org.iglooproject.functional.SerializableSupplier2;
 import org.iglooproject.spring.property.service.IPropertyService;
 import org.iglooproject.wicket.behavior.ClassAttributeAppender;
@@ -48,6 +34,22 @@ import org.iglooproject.wicket.more.markup.html.template.model.NavigationMenuIte
 import org.iglooproject.wicket.more.model.ApplicationPropertyModel;
 
 import com.google.common.collect.ImmutableList;
+
+import fr.portefeuille.core.security.model.PortefeuilleAuthorityConstants;
+import fr.portefeuille.core.security.service.IPortefeuilleAuthenticationService;
+import fr.portefeuille.core.security.service.ISecurityManagementService;
+import fr.portefeuille.web.application.PortefeuilleApplication;
+import fr.portefeuille.web.application.PortefeuilleSession;
+import fr.portefeuille.web.application.administration.page.AdministrationAnnouncementListPage;
+import fr.portefeuille.web.application.administration.page.AdministrationBasicUserListPage;
+import fr.portefeuille.web.application.administration.page.AdministrationTechnicalUserListPage;
+import fr.portefeuille.web.application.administration.page.AdministrationUserGroupListPage;
+import fr.portefeuille.web.application.common.component.AnnouncementsPanel;
+import fr.portefeuille.web.application.common.template.theme.PortefeuilleApplicationTheme;
+import fr.portefeuille.web.application.common.template.theme.common.BootstrapBreakpointPanel;
+import fr.portefeuille.web.application.portefeuille.page.PortefeuilleListPage;
+import fr.portefeuille.web.application.referencedata.page.ReferenceDataPage;
+import fr.portefeuille.web.application.security.password.page.SecurityPasswordExpirationPage;
 
 public abstract class MainTemplate extends AbstractWebPageTemplate {
 
@@ -116,6 +118,9 @@ public abstract class MainTemplate extends AbstractWebPageTemplate {
 			PortefeuilleApplication.get().getHomePageLinkDescriptor()
 				.navigationMenuItem(new ResourceModel("navigation.home"))
 				.iconClasses(Model.of("fa fa-fw fa-home")),
+			PortefeuilleListPage.linkDescriptor()
+				.navigationMenuItem(new ResourceModel("navigation.portefeuille"))
+				.iconClasses(Model.of("fa fa-fw fas fa-wallet")),
 			ReferenceDataPage.linkDescriptor()
 				.navigationMenuItem(new ResourceModel("navigation.referenceData"))
 				.iconClasses(Model.of("fa fa-fw fa-list")),
