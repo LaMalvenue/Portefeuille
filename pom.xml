@@ -17,10 +17,6 @@
 
 	<name>Portefeuille</name>
 
-	<properties>
-    <!-- KEEPME: archetype igloo.version -->
-	</properties>
-
 	<version>0.1-SNAPSHOT</version>
 
 	<properties>
