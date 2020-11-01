@@ -4,16 +4,19 @@ import java.util.Collections;
 import java.util.SortedSet;
 
 import javax.persistence.Basic;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.bindgen.Bindable;
 import org.hibernate.annotations.SortComparator;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Normalizer;
 import org.hibernate.search.annotations.SortableField;
 import org.iglooproject.commons.util.collections.CollectionUtils;
@@ -26,6 +29,9 @@ import com.google.common.collect.Sets;
 import fr.portefeuille.core.business.compte.model.Compte;
 import fr.portefeuille.core.business.compte.model.comparator.CompteComparator;
 
+@Indexed
+@Entity
+@Bindable
 public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 
 	private static final long serialVersionUID = -1482204779794633259L;
