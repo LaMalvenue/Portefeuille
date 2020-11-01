@@ -1,6 +1,6 @@
 package fr.portefeuille.core.business.compte.model.atomic;
 
-public enum Type {
+public enum TypeCompte {
 
 	LIQUIDE,
 	COMPTE_COURANT,

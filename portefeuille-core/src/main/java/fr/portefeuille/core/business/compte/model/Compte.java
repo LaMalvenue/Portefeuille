@@ -30,7 +30,7 @@ import org.iglooproject.jpa.search.bridge.GenericEntityIdFieldBridge;
 import org.iglooproject.jpa.search.util.HibernateSearchAnalyzer;
 import org.iglooproject.jpa.search.util.HibernateSearchNormalizer;
 
-import fr.portefeuille.core.business.compte.model.atomic.Type;
+import fr.portefeuille.core.business.compte.model.atomic.TypeCompte;
 import fr.portefeuille.core.business.operation.model.Operation;
 import fr.portefeuille.core.business.operation.model.comparator.OperationComparator;
 import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
@@ -65,7 +65,7 @@ public class Compte extends GenericEntity<Long, Compte> {
 	
 	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
-	private Type type;
+	private TypeCompte type;
 	
 	@OneToMany(mappedBy = "compte", fetch = FetchType.LAZY, orphanRemoval = true)
 	@SortComparator(OperationComparator.class)
@@ -103,11 +103,11 @@ public class Compte extends GenericEntity<Long, Compte> {
 		this.fondsDisponibles = fondsDisponibles;
 	}
 
-	public Type getType() {
+	public TypeCompte getType() {
 		return type;
 	}
 
-	public void setType(Type type) {
+	public void setType(TypeCompte type) {
 		this.type = type;
 	}
 

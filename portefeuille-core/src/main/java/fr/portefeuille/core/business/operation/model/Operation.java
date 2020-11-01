@@ -29,6 +29,7 @@ import fr.portefeuille.core.business.compte.model.Compte;
 import fr.portefeuille.core.business.operation.model.atomic.Categorie;
 import fr.portefeuille.core.business.operation.model.atomic.Mois;
 import fr.portefeuille.core.business.operation.model.atomic.Statut;
+import fr.portefeuille.core.business.operation.model.atomic.TypeOperation;
 
 @Indexed
 @Entity
@@ -41,12 +42,14 @@ public class Operation extends GenericEntity <Long, Operation> {
 	public static final String LABEL_SORT = "labelSort";
 	public static final String DATE = "date";
 	public static final String CATEGORIE = "categorie";
+	public static final String TYPE_OPERATION = "typeOperation";
+	public static final String STATUT = "statut";
+	public static final String MOIS = "mois";
+	
 	public static final String COMPTE = "compte";
 	public static final String COMPTE_PREFIX = COMPTE + ".";
 	public static final String COMPTE_LABEL_SORT = COMPTE_PREFIX + Compte.LABEL_SORT;
 	public static final String COMPTE_LABEL = COMPTE_PREFIX + Compte.LABEL;	
-	public static final String STATUT = "statut";
-	public static final String MOIS = "mois";
 
 	@Id
 	@DocumentId
@@ -73,8 +76,10 @@ public class Operation extends GenericEntity <Long, Operation> {
 	@Enumerated(EnumType.STRING)
 	private Categorie categorie;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private Compte compte;
+	@Field(name = TYPE_OPERATION)
+	@Basic(optional = false)
+	@Enumerated(EnumType.STRING)
+	private TypeOperation type;
 
 	@Field(name = STATUT)
 	@Basic(optional = false)
@@ -85,6 +90,9 @@ public class Operation extends GenericEntity <Long, Operation> {
 	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
 	private Mois budgetAffecte;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private Compte compte;
 
 	@Override
 	public Long getId() {
@@ -128,12 +136,12 @@ public class Operation extends GenericEntity <Long, Operation> {
 		this.categorie = categorie;
 	}
 
-	public Compte getCompte() {
-		return compte;
+	public TypeOperation getTypeOperation() {
+		return type;
 	}
 
-	public void setCompte(Compte compte) {
-		this.compte = compte;
+	public void setTypeOperation(TypeOperation type) {
+		this.type = type;
 	}
 
 	public Statut getStatut() {
@@ -150,6 +158,14 @@ public class Operation extends GenericEntity <Long, Operation> {
 
 	public void setBudgetAffecte(Mois budgetAffecte) {
 		this.budgetAffecte = budgetAffecte;
+	}
+
+	public Compte getCompte() {
+		return compte;
+	}
+
+	public void setCompte(Compte compte) {
+		this.compte = compte;
 	}
 
 }
