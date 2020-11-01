@@ -1,0 +1,42 @@
+package fr.portefeuille.core.business.user.search;
+
+import java.util.Set;
+
+import fr.portefeuille.core.business.user.model.User;
+import fr.portefeuille.core.business.user.model.UserGroup;
+import fr.portefeuille.core.util.binding.Bindings;
+import org.iglooproject.jpa.more.business.search.query.AbstractHibernateSearchSearchQuery;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import com.google.common.collect.Sets;
+
+@Component
+@Scope("prototype")
+public class UserGroupSearchQueryImpl extends AbstractHibernateSearchSearchQuery<UserGroup, UserGroupSort> implements IUserGroupSearchQuery {
+
+	public UserGroupSearchQueryImpl() {
+		super(UserGroup.class, UserGroupSort.NAME);
+	}
+
+	@Override
+	public IUserGroupSearchQuery user(User user) {
+		Set<Long> ids = Sets.newHashSet();
+		for (UserGroup userGroup : user.getGroups()) {
+			ids.add(userGroup.getId());
+		}
+		if (ids.isEmpty()) {
+			must(matchIfGiven(Bindings.userGroup().id(), -1L));
+		} else {
+			must(matchOneIfGiven(Bindings.userGroup().id(), ids));
+		}
+		return this;
+	}
+	
+	@Override
+	public IUserGroupSearchQuery name(String name) {
+		must(matchIfGiven(Bindings.userGroup().name(), name));
+		return this;
+	}
+
+}
