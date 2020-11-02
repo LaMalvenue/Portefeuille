@@ -34,6 +34,7 @@ public class PortefeuilleListPage extends PortefeuilleTemplate {
 		.add(
 			new EnclosureContainer("actionsContainer")
 				.anyChildVisible()
+				.add(PortefeuilleCreatePage.linkDescriptor().link("add"))
 		);
 		
 		PortefeuilleDataProvider portefeuilleDataProvider = new PortefeuilleDataProvider();
@@ -41,6 +42,7 @@ public class PortefeuilleListPage extends PortefeuilleTemplate {
 		DecoratedCoreDataTablePanel<?, ?> resultats = 
 			DataTableBuilder.start(portefeuilleDataProvider, portefeuilleDataProvider.getSortModel())
 				.addLabelColumn(new ResourceModel("business.portefeuille.nom"), Bindings.portefeuille().nom())
+					.withLink(PortefeuilleDetailPage.MAPPER)
 					.withSort(PortefeuilleSort.NOM, SortIconStyle.ALPHABET, CycleMode.DEFAULT_REVERSE)
 					.withClass("text text-md align-middle")
 				.addLabelColumn(new ResourceModel("business.portefeuille.fondsTotauxDisponibles"), Bindings.portefeuille().fondsTotauxDisponibles())

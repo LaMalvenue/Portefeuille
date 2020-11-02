@@ -13,4 +13,9 @@ public class PortefeuilleServiceImpl extends GenericEntityServiceImpl<Long, Port
 		super(dao);
 	}
 
+	@Override
+	public void savePortefeuille(Portefeuille portefeuille) {
+		
+	}
+
 }

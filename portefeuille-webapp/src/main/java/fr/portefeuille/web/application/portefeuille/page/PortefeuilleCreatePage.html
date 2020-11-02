@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<wicket:extend>
+	<div class="content-container">
+		<div class="content-header-section">
+			<div class="content-header-container">
+				<div class="content-header">
+					<h4 class="content-header-title">
+						<wicket:message key="portefeuille.create.title" />
+					</h4>
+				</div>
+			</div>
+		</div>
+		<div class="content-body-section">
+			<div class="content-body-container">
+				<div class="content-body">
+					<form wicket:id="form">
+						<div class="row row-md">
+
+							<div class="col-xl-6">
+								<div class="card card-page">
+									<div class="card-body">
+										<div class="row row-form">
+										
+											<div class="col-12">
+												<div class="row row-form-group form-group">
+													<div class="col-md-4">
+														<label class="col-form-label form-label" wicket:for="nom"><wicket:label /></label>
+													</div>
+													<div class="col-md-8">
+														<input wicket:id="nom" class="form-control" type="text" />
+													</div>
+												</div>
+											</div>
+					
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-6">
+								<div class="card card-page">
+									<div class="card-header">
+										<h5 class="card-header-title"><wicket:message key="business.portefeuille.comptes" /></h5>
+									</div>
+									<div class="card-body card-body-table">
+										<div class="table-reponsive">
+											<table class="table table-hover table-striped table-bordered-inner table-card-body">
+												<thead class="thead-light">
+													<tr>
+														<th class="text text-md"><wicket:message key="business.compte.label" /></th>
+														<th class="text text-md"><wicket:message key="business.compte.type" /></th>
+														<th class="actions actions-1x"></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr wicket:id="comptes">
+														<td class="text text-md"><input wicket:id="label" class="form-control form-control-sm" /></td>
+														<td class="text text-md"><select wicket:id="type" class="form-control form-control-sm" /></td>
+														<td class="actions actions-1x">
+															<div class="row row-table-action">
+																<div class="col-table-action">
+																	<button wicket:id="delete" class="btn btn-danger btn-table-row-action" type="button">
+																		<span class="fa fa-fw fa-trash-alt" />
+																	</button>
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr wicket:id="emptyPlaceholder" class="empty-list">
+														<td colspan="3"><wicket:message key="common.list.empty" /></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="card-footer">
+										<button wicket:id="add" class="btn btn-primary">
+											<span class="fa fa-fw fa-plus" />
+											<wicket:message key="common.action.add" />
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<button wicket:id="save" class="btn btn-success">
+									<span class="fa fa-fw fa-check" />
+									<wicket:message key="common.action.validate" />
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</wicket:extend>
+</html>
