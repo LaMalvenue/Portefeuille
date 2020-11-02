@@ -16,11 +16,15 @@ import org.iglooproject.wicket.more.markup.html.action.IAjaxAction;
 import org.iglooproject.wicket.more.markup.html.basic.EnclosureContainer;
 import org.iglooproject.wicket.more.markup.html.feedback.FeedbackUtils;
 import org.iglooproject.wicket.more.markup.html.template.js.bootstrap.confirm.component.AjaxConfirmLink;
+import org.iglooproject.wicket.more.model.BindingModel;
 import org.iglooproject.wicket.more.model.GenericEntityModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
+import fr.portefeuille.core.util.binding.Bindings;
+import fr.portefeuille.web.application.portefeuille.component.PortefeuilleDetailComptesPanel;
+import fr.portefeuille.web.application.portefeuille.form.PortefeuillePopup;
 import fr.portefeuille.web.application.portefeuille.template.PortefeuilleTemplate;
 
 public class PortefeuilleDetailPage extends PortefeuilleTemplate {
@@ -51,14 +55,17 @@ public class PortefeuilleDetailPage extends PortefeuilleTemplate {
 		EnclosureContainer headerElementsSection = new EnclosureContainer("headerElementsSection");
 		add(headerElementsSection.anyChildVisible());
 		
+		PortefeuillePopup popup = new PortefeuillePopup("popup", portefeuilleModel);
+		add(popup);
+		
 		headerElementsSection
 			.add(
 				new EnclosureContainer("actionsContainer")
 					.anyChildVisible()
 					.add(
 						AjaxConfirmLink.<Portefeuille>build()
-							.title(new ResourceModel("site.action.delete.confirmation.title"))
-							.content(new ResourceModel("site.action.delete.confirmation.content"))
+							.title(new ResourceModel("portefeuille.action.delete.confirmation.title"))
+							.content(new ResourceModel("portefeuille.action.delete.confirmation.content"))
 							.confirm()
 							.onClick(new IAjaxAction() {
 								private static final long serialVersionUID = 1L;
@@ -66,12 +73,12 @@ public class PortefeuilleDetailPage extends PortefeuilleTemplate {
 								public void execute(AjaxRequestTarget target) {
 									try {
 										portefeuilleService.delete(portefeuilleModel.getObject());
-										Session.get().success(getString("site.action.delete.success"));
+										Session.get().success(getString("portefeuille.action.delete.success"));
 										throw PortefeuilleListPage.linkDescriptor().newRestartResponseException();
 									}catch (RestartResponseException e) {
 										throw e;
 									} catch (Exception e) {
-										LOGGER.error("Error occured while enabling user", e);
+										LOGGER.error("Erreur lors de la suppression du portefeuille", e);
 										Session.get().error(getString("common.error.unexpected"));
 									}
 									FeedbackUtils.refreshFeedback(target, getPage());
@@ -84,7 +91,13 @@ public class PortefeuilleDetailPage extends PortefeuilleTemplate {
 		add(
 			PortefeuilleListPage.linkDescriptor().link("backToList"),
 			headerElementsSection,
-			new CoreLabel("title", new StringResourceModel("portefeuille.detail.title.param", portefeuilleModel))
+			popup,
+			new CoreLabel("title", new StringResourceModel("portefeuille.detail.title.param", portefeuilleModel)),
+			new CoreLabel("nom", BindingModel.of(portefeuilleModel, Bindings.portefeuille().nom()))
+				.showPlaceholder(),
+			new CoreLabel("fondsTotauxDisponibles", BindingModel.of(portefeuilleModel, Bindings.portefeuille().fondsTotauxDisponibles()))
+				.showPlaceholder(),
+			new PortefeuilleDetailComptesPanel("comptes", portefeuilleModel)
 		);
 		
 	}
