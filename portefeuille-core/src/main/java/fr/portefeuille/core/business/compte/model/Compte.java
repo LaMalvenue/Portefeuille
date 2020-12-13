@@ -44,7 +44,9 @@ public class Compte extends GenericEntity<Long, Compte> {
 
 	public static final String LABEL = "label";
 	public static final String LABEL_SORT = "labelSort";
+	
 	public static final String TYPE = "type";
+	
 	public static final String PORTEFEUILLE = "portefeuille";
 	public static final String PORTEFEUILLE_PREFIX = PORTEFEUILLE + ".";
 	public static final String PORTEFEUILLE_NOM_SORT = PORTEFEUILLE_PREFIX + Portefeuille.NOM_SORT;
@@ -55,6 +57,7 @@ public class Compte extends GenericEntity<Long, Compte> {
 	@GeneratedValue
 	private Long id;
 
+	@Basic
 	@Field(name = LABEL, analyzer = @Analyzer(definition = HibernateSearchAnalyzer.TEXT_STEMMING))
 	@Field(name = LABEL_SORT, normalizer = @Normalizer(definition = HibernateSearchNormalizer.TEXT))
 	@SortableField(forField = LABEL_SORT)

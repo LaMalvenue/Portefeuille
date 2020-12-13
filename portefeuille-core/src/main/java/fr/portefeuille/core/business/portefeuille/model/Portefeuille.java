@@ -92,4 +92,8 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 		this.fondsTotauxDisponibles = fondsTotauxDisponibles;
 	}
 
+	public boolean addCompte(Compte compte) {
+		return comptes.add(compte);
+	}
+
 }

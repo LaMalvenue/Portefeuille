@@ -18,7 +18,6 @@ import org.iglooproject.spring.property.service.IPropertyService;
 import org.iglooproject.wicket.more.bindable.component.BindableCollectionView;
 import org.iglooproject.wicket.more.bindable.model.IBindableCollectionModel;
 import org.iglooproject.wicket.more.bindable.model.IBindableModel;
-import org.iglooproject.wicket.more.common.behavior.UpdateOnChangeAjaxEventBehavior;
 import org.iglooproject.wicket.more.condition.Condition;
 import org.iglooproject.wicket.more.link.descriptor.IPageLinkDescriptor;
 import org.iglooproject.wicket.more.link.descriptor.builder.LinkDescriptorBuilder;
@@ -27,7 +26,6 @@ import org.iglooproject.wicket.more.markup.html.feedback.FeedbackUtils;
 import org.iglooproject.wicket.more.markup.html.form.EnumDropDownSingleChoice;
 import org.iglooproject.wicket.more.markup.repeater.collection.SpecificModelCollectionView;
 import org.iglooproject.wicket.more.model.GenericEntityModel;
-import org.iglooproject.wicket.more.util.model.Detachables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,8 +49,6 @@ public class PortefeuilleCreatePage extends PortefeuilleTemplate {
 	@SpringBean
 	private IPropertyService propertyService;
 
-	private final PortefeuilleBindableModel portefeuilleBindableModel;
-
 	public static final IPageLinkDescriptor linkDescriptor() {
 		return LinkDescriptorBuilder.start()
 			.page(PortefeuilleCreatePage.class);
@@ -61,32 +57,28 @@ public class PortefeuilleCreatePage extends PortefeuilleTemplate {
 	public PortefeuilleCreatePage(PageParameters parameters) {
 		super(parameters);
 		
-		this.portefeuilleBindableModel = new PortefeuilleBindableModel(new GenericEntityModel<>(new Portefeuille()));
-		
-		Form<Portefeuille> form = new Form<>("form");
-		
+		PortefeuilleBindableModel portefeuilleBindableModel = new PortefeuilleBindableModel(new GenericEntityModel<>(new Portefeuille()));
+		IBindableCollectionModel<Compte, SortedSet<Compte>> comptesBindableModel = portefeuilleBindableModel.bindCollectionAlreadyAdded(Bindings.portefeuille().comptes());
+
 		IModel<String> nomModel = portefeuilleBindableModel.bind(Bindings.portefeuille().nom());
 		
+		Form<Portefeuille> form = new Form<>("form");
 		TextField<String> nom = new TextField<>("nom", nomModel, String.class);
-		
-		IBindableCollectionModel<Compte, SortedSet<Compte>> comptesBindableModel = portefeuilleBindableModel.bindCollectionAlreadyAdded(Bindings.portefeuille().comptes());
 		
 		form.add(
 			nom
 				.setLabel(new ResourceModel("business.portefeuille.nom"))
-				.setRequired(true)
-				.add(new UpdateOnChangeAjaxEventBehavior()),
+				.setRequired(true),
+			// TODO AROUV : Ne fonctionne pas 
 			new BindableCollectionView<Compte>("comptes", comptesBindableModel) {
 				private static final long serialVersionUID = 1L;
 				@Override
 				protected void populateItem(SpecificModelCollectionView<Compte, IBindableModel<Compte>>.SpecificModelItem item) {
 					item.add(
 						new TextField<>("label", item.getSpecificModel().bind(Bindings.compte().label()))
-							.setLabel(new ResourceModel("business.compte.label"))
-							.add(new UpdateOnChangeAjaxEventBehavior()),
+							.setLabel(new ResourceModel("business.compte.label")),
 						new EnumDropDownSingleChoice<TypeCompte>("typeCompte", item.getSpecificModel().bind(Bindings.compte().type()), TypeCompte.class)
-							.setLabel(new ResourceModel("business.compte.type"))
-							.add(new UpdateOnChangeAjaxEventBehavior()),
+							.setLabel(new ResourceModel("business.compte.type")),
 						new AjaxLink<Void>("delete") {
 								private static final long serialVersionUID = 1L;
 								@Override
@@ -145,12 +137,4 @@ public class PortefeuilleCreatePage extends PortefeuilleTemplate {
 		add(form);
 		
 	}
-	
-
-	@Override
-	protected void onDetach() {
-		super.onDetach();
-		Detachables.detach(portefeuilleBindableModel);
-	}
-
 }

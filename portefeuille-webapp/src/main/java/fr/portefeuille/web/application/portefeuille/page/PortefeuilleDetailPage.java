@@ -65,7 +65,7 @@ public class PortefeuilleDetailPage extends PortefeuilleTemplate {
 					.add(
 						AjaxConfirmLink.<Portefeuille>build()
 							.title(new ResourceModel("portefeuille.action.delete.confirmation.title"))
-							.content(new ResourceModel("portefeuille.action.delete.confirmation.content"))
+							.content(new StringResourceModel("portefeuille.action.delete.confirmation.content", portefeuilleModel))
 							.confirm()
 							.onClick(new IAjaxAction() {
 								private static final long serialVersionUID = 1L;

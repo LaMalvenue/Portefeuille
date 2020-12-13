@@ -2,6 +2,19 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <wicket:panel>
+	<div wicket:id="addComptePopup"/>
+	
 	<div wicket:id="results" class="card card-page" />
+	
+	<wicket:fragment wicket:id="addCompte">
+		<div class="row row-form align-items-center">
+			<div class="col-auto">
+				<button wicket:id="add" class="btn btn-primary" type="button">
+					<span class="fa fa-fw fa-plus" />
+					<wicket:message key="common.action.add" />
+				</button>
+			</div>
+		</div>
+	</wicket:fragment>
 </wicket:panel>
 </html>

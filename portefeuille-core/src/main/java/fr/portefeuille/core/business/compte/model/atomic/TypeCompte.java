@@ -4,7 +4,7 @@ public enum TypeCompte {
 
 	LIQUIDE,
 	COMPTE_COURANT,
-	LIVRET_A,
-	LEP;
+	EPARGNE,
+	CARTE_RESTAURANT;
 
 }

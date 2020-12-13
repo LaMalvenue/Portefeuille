@@ -3,17 +3,21 @@ package fr.portefeuille.web.application.portefeuille.component;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.iglooproject.spring.property.service.IPropertyService;
 import org.iglooproject.wicket.markup.html.panel.GenericPanel;
 import org.iglooproject.wicket.more.markup.html.action.IOneParameterAjaxAction;
 import org.iglooproject.wicket.more.markup.html.feedback.FeedbackUtils;
+import org.iglooproject.wicket.more.markup.html.link.BlankLink;
+import org.iglooproject.wicket.more.markup.html.template.js.bootstrap.modal.behavior.AjaxModalOpenBehavior;
 import org.iglooproject.wicket.more.markup.repeater.table.DecoratedCoreDataTablePanel.AddInPlacement;
 import org.iglooproject.wicket.more.markup.repeater.table.builder.DataTableBuilder;
-import org.iglooproject.wicket.more.util.model.Detachables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wicketstuff.wiquery.core.events.MouseEvent;
 
 import fr.portefeuille.core.business.compte.model.Compte;
 import fr.portefeuille.core.business.compte.service.ICompteService;
@@ -21,7 +25,9 @@ import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
 import fr.portefeuille.core.util.binding.Bindings;
 import fr.portefeuille.web.application.common.renderer.ActionRenderers;
 import fr.portefeuille.web.application.common.util.CssClassConstants;
+import fr.portefeuille.web.application.compte.form.CompteAddPopup;
 import fr.portefeuille.web.application.compte.model.CompteDataProvider;
+import fr.portefeuille.web.application.property.PortefeuilleWebappPropertyIds;
 
 public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
 
@@ -29,20 +35,23 @@ public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PortefeuilleDetailComptesPanel.class);
 
-	private final CompteDataProvider compteDataProvider;
-
+	@SpringBean
+	private IPropertyService propertyService;
 	@SpringBean
 	private ICompteService compteService;
 
-//	private PathAddPopup addComptePopup;
+	private CompteAddPopup addComptePopup;
 
 	public PortefeuilleDetailComptesPanel(String id, final IModel<Portefeuille> portefeuilleModel) {
 		super(id, portefeuilleModel);
 		
+		CompteDataProvider compteDataProvider;
+		
 		setOutputMarkupId(true);
-
-		this.compteDataProvider = new CompteDataProvider();
-		this.compteDataProvider.getPortefeuilleModel().setObject(portefeuilleModel.getObject());
+		add(addComptePopup= new CompteAddPopup("addComptePopup", portefeuilleModel));
+		
+		compteDataProvider = new CompteDataProvider();
+		compteDataProvider.setPortefeuilleModel(portefeuilleModel);
 		
 		add(
 			DataTableBuilder.start(compteDataProvider, compteDataProvider.getSortModel())
@@ -78,17 +87,24 @@ public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
 					.end()
 					.withClass("actions actions-1x")
 				.bootstrapCard()
-//					.addIn(AddInPlacement.FOOTER_RIGHT, (wicketId, table) -> new SectorPathAddFragment(wicketId, sectorModel))
+					.addIn(AddInPlacement.FOOTER_RIGHT, (wicketId, table) -> new CompteAddFragment(wicketId, portefeuilleModel))
 					.ajaxPager(AddInPlacement.HEADING_RIGHT)
 					.count("portefeuille.detail.comptes.count")
-				.build("results", 5)
+				.build("results", propertyService.get(PortefeuilleWebappPropertyIds.PORTFOLIO_ITEMS_PER_PAGE))
 		);
 	}
-
-	@Override
-	protected void onDetach() {
-		super.onDetach();
-		Detachables.detach(compteDataProvider);
+	
+	private class CompteAddFragment extends Fragment {
+		
+		private static final long serialVersionUID = 1L;
+		
+		public CompteAddFragment(String id, IModel<Portefeuille> portefeuilleModel) {
+			super(id, "addCompte", PortefeuilleDetailComptesPanel.this);
+			
+			add(
+				new BlankLink("add")
+					.add(new AjaxModalOpenBehavior(addComptePopup, MouseEvent.CLICK))
+			);
+		}
 	}
-
 }

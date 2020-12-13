@@ -7,7 +7,6 @@ import org.iglooproject.wicket.more.link.descriptor.builder.LinkDescriptorBuilde
 import org.iglooproject.wicket.more.markup.html.basic.EnclosureContainer;
 import org.iglooproject.wicket.more.markup.html.sort.SortIconStyle;
 import org.iglooproject.wicket.more.markup.html.sort.TableSortLink.CycleMode;
-import org.iglooproject.wicket.more.markup.repeater.table.DecoratedCoreDataTablePanel;
 import org.iglooproject.wicket.more.markup.repeater.table.builder.DataTableBuilder;
 
 import fr.portefeuille.core.business.compte.search.CompteSort;
@@ -38,22 +37,19 @@ public class CompteListPage extends CompteTemplate {
 		
 		CompteDataProvider compteDataProvider = new CompteDataProvider();
 		
-		DecoratedCoreDataTablePanel<?, ?> resultats = 
+		add(
 			DataTableBuilder.start(compteDataProvider, compteDataProvider.getSortModel())
 				.addLabelColumn(new ResourceModel("business.compte.label"), Bindings.compte().label())
 					.withSort(CompteSort.LABEL, SortIconStyle.ALPHABET, CycleMode.DEFAULT_REVERSE)
 					.withClass("text text-md align-middle")
 				.addLabelColumn(new ResourceModel("business.compte.fondsDisponibles"), Bindings.compte().fondsDisponibles())
 					.withClass("text text-sm align-middle")
-				.addLabelColumn(new ResourceModel("business.compte.type"), Bindings.compte().type())
+				.addLabelColumn(new ResourceModel("business.compte.typeCompte"), Bindings.compte().type())
 					.withClass("text text-sm align-middle")
 				.bootstrapCard()
 					.ajaxPagers()
 					.count("compte.list.count")
-				.build("resultats", 10);
-		
-		add(
-			resultats
+				.build("resultats", 10)
 		);
 	}
 

@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.collect.ImmutableList;
 
 import fr.portefeuille.core.business.common.model.PostalCode;
+import fr.portefeuille.core.business.compte.model.atomic.TypeCompte;
 import fr.portefeuille.core.business.history.model.atomic.HistoryEventType;
 import fr.portefeuille.core.business.user.model.BasicUser;
 import fr.portefeuille.core.business.user.model.TechnicalUser;
@@ -148,6 +149,8 @@ public class PortefeuilleApplication extends CoreWicketAuthenticatedApplication 
 		converterLocator.set(HistoryEventType.class, EnumRenderer.get());
 		
 		converterLocator.set(PostalCode.class, PostalCodeConverter.get());
+		
+		converterLocator.set(TypeCompte.class, EnumRenderer.get());
 		
 		return new HibernateProxyAwareConverterLocator(converterLocator);
 	}
