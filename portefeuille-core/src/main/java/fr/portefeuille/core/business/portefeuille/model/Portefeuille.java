@@ -55,6 +55,7 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 	@ContainedIn
 	private SortedSet<Compte> comptes = Sets.newTreeSet(CompteComparator.get());
 	
+	// TODO supprimer cet attribut inutile
 	@Basic(optional = false)
 	private double fondsTotauxDisponibles;
 

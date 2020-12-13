@@ -40,6 +40,7 @@ public class CompteListPage extends CompteTemplate {
 		add(
 			DataTableBuilder.start(compteDataProvider, compteDataProvider.getSortModel())
 				.addLabelColumn(new ResourceModel("business.compte.label"), Bindings.compte().label())
+					.withLink(CompteDetailPage.MAPPER)
 					.withSort(CompteSort.LABEL, SortIconStyle.ALPHABET, CycleMode.DEFAULT_REVERSE)
 					.withClass("text text-md align-middle")
 				.addLabelColumn(new ResourceModel("business.compte.fondsDisponibles"), Bindings.compte().fondsDisponibles())

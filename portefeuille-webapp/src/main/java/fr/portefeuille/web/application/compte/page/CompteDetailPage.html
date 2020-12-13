@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
-	<wicket:extend>
-		<div class="content-container">
-			<div class="content-header-section">
-				<div class="content-header-container">
-					<div class="content-header">
-					
+<wicket:extend>
+	
+	<div class="content-container">
+		<div class="content-header-section">
+			<div class="content-header-container">
+				<div class="content-header">
+				
 						<div class="row row-xs align-items-center">
 							<div class="col-auto">
 								<a wicket:id="backToList" class="btn btn-sm btn-outline-secondary" wicket:message="title:common.backToList">
@@ -34,20 +35,21 @@
 								</div>
 							</div>
 						</div>
-						
-					</div>
+					
 				</div>
 			</div>
-			
-			<div class="content-body-section">
-				<div class="content-body-container">
-					<div class="content-body">
-						<div class="row row-md">
-							<div class="col-lg-6">
+		</div>
+		
+		<div class="content-body-section">
+			<div class="content-body-container">
+				<div class="content-body">
+					<div class="row row-md">
+					
+						<div class="col-lg-6">
 								<div class="card card-page">
 									<div class="card-header">
 										<h5 class="card-header-title">
-											<wicket:message key="portefeuille.detail.description" />
+											<wicket:message key="compte.detail.description" />
 										</h5>
 									</div>
 									<div class="card-body">
@@ -56,24 +58,24 @@
 												<div class="row row-description-group description-group">
 													<div class="col-md-4">
 														<div class="description-label">
-															<wicket:message key="business.portefeuille.nom" />
+															<wicket:message key="business.compte.label" />
 														</div>
 													</div>
 													<div class="col-md-8">
 														<div class="description-value">
-															<span wicket:id="nom" />
+															<span wicket:id="label" />
 														</div>
 													</div>
 												</div>
 												<div class="row row-description-group description-group">
 													<div class="col-md-4">
 														<div class="description-label">
-															<wicket:message key="business.portefeuille.fondsTotauxDisponibles" />
+															<wicket:message key="business.compte.fondsDisponibles" />
 														</div>
 													</div>
 													<div class="col-md-8">
 														<div class="description-value">
-															<span wicket:id="fondsTotauxDisponibles" />
+															<span wicket:id="fondsDisponibles" />
 														</div>
 													</div>
 												</div>
@@ -90,12 +92,11 @@
 									</div>
 								</div>
 							</div>
-							<div wicket:id="comptes" class="col-lg-6" />
-						</div>
+						
 					</div>
 				</div>
 			</div>
 		</div>
-			
-	</wicket:extend>
+	</div>
+</wicket:extend>
 </html>

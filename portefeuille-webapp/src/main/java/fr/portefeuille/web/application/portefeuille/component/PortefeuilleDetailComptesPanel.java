@@ -27,6 +27,7 @@ import fr.portefeuille.web.application.common.renderer.ActionRenderers;
 import fr.portefeuille.web.application.common.util.CssClassConstants;
 import fr.portefeuille.web.application.compte.form.CompteAddPopup;
 import fr.portefeuille.web.application.compte.model.CompteDataProvider;
+import fr.portefeuille.web.application.compte.page.CompteDetailPage;
 import fr.portefeuille.web.application.property.PortefeuilleWebappPropertyIds;
 
 public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
@@ -56,8 +57,9 @@ public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
 		add(
 			DataTableBuilder.start(compteDataProvider, compteDataProvider.getSortModel())
 				.addLabelColumn(new ResourceModel("business.compte.label"), Bindings.compte().label())
-//					.withLink(CompteDetailPage.MAPPER)
+					.withLink(CompteDetailPage.MAPPER)
 					.withClass("text text-md")
+				.addLabelColumn(new ResourceModel("business.compte.fondsDisponibles"), Bindings.compte().fondsDisponibles())
 				.addActionColumn()
 					.addConfirmAction(ActionRenderers.delete())
 						.title(new ResourceModel("compte.action.delete.confirmation.title")) 

@@ -56,7 +56,6 @@ public class PortefeuilleDetailPage extends PortefeuilleTemplate {
 		add(headerElementsSection.anyChildVisible());
 		
 		PortefeuillePopup popup = new PortefeuillePopup("popup", portefeuilleModel);
-		add(popup);
 		
 		headerElementsSection
 			.add(

@@ -58,6 +58,7 @@ import fr.portefeuille.web.application.common.template.resources.styles.applicat
 import fr.portefeuille.web.application.common.template.resources.styles.console.console.ConsoleScssResourceReference;
 import fr.portefeuille.web.application.common.template.resources.styles.console.consoleaccess.ConsoleAccessScssResourceReference;
 import fr.portefeuille.web.application.common.template.resources.styles.notification.NotificationScssResourceReference;
+import fr.portefeuille.web.application.compte.page.CompteDetailPage;
 import fr.portefeuille.web.application.compte.page.CompteListPage;
 import fr.portefeuille.web.application.console.common.component.ConsoleAccessHeaderAdditionalContentPanel;
 import fr.portefeuille.web.application.console.common.component.ConsoleHeaderAdditionalContentPanel;
@@ -184,6 +185,7 @@ public class PortefeuilleApplication extends CoreWicketAuthenticatedApplication 
 		
 		// Comptes
 		mountPage("/comptes/", CompteListPage.class);
+		mountParameterizedPage("/comptes/detail/", CompteDetailPage.class);
 		
 		// Operations
 		mountPage("/operations/", OperationListPage.class);
