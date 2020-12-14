@@ -44,13 +44,15 @@ public class Compte extends GenericEntity<Long, Compte> {
 
 	public static final String LABEL = "label";
 	public static final String LABEL_SORT = "labelSort";
-	
+
+	public static final String FONDS_DISPONIBLES = "fondsDisponibles";
+
 	public static final String TYPE = "type";
-	
+
 	public static final String PORTEFEUILLE = "portefeuille";
 	public static final String PORTEFEUILLE_PREFIX = PORTEFEUILLE + ".";
-	public static final String PORTEFEUILLE_NOM_SORT = PORTEFEUILLE_PREFIX + Portefeuille.NOM_SORT;
 	public static final String PORTEFEUILLE_NOM = PORTEFEUILLE_PREFIX + Portefeuille.NOM;
+	public static final String PORTEFEUILLE_NOM_SORT = PORTEFEUILLE_PREFIX + Portefeuille.NOM_SORT;
 
 	@Id
 	@DocumentId
@@ -64,10 +66,15 @@ public class Compte extends GenericEntity<Long, Compte> {
 	private String label;
 	
 	@Basic(optional = false)
+	@Field(name = FONDS_DISPONIBLES)
+	@SortableField(forField = FONDS_DISPONIBLES)
 	private double fondsDisponibles;
 	
+	// TODO AROUV : Basic + Enumerated ?
 	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
+	@Field(name = TYPE)
+	@SortableField(forField = TYPE)
 	private TypeCompte type;
 	
 	@OneToMany(mappedBy = "compte", fetch = FetchType.LAZY, orphanRemoval = true)

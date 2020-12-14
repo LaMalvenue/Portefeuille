@@ -28,7 +28,7 @@ public class CompteDataProvider extends AbstractSearchQueryDataProvider<Compte, 
 	private final CompositeSortModel<CompteSort> sortModel = new CompositeSortModel<>(
 		CompositingStrategy.LAST_ONLY,
 		ImmutableMap.of(
-			CompteSort.LABEL, CompteSort.LABEL.getDefaultOrder()
+			CompteSort.PORTEFEUILLE_NOM, CompteSort.PORTEFEUILLE_NOM.getDefaultOrder()
 		),
 		ImmutableMap.of(
 			CompteSort.ID, CompteSort.ID.getDefaultOrder()

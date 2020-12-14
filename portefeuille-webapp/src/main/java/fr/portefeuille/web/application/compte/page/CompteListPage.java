@@ -13,6 +13,7 @@ import fr.portefeuille.core.business.compte.search.CompteSort;
 import fr.portefeuille.core.util.binding.Bindings;
 import fr.portefeuille.web.application.compte.model.CompteDataProvider;
 import fr.portefeuille.web.application.compte.template.CompteTemplate;
+import fr.portefeuille.web.application.portefeuille.page.PortefeuilleDetailPage;
 
 public class CompteListPage extends CompteTemplate {
 
@@ -39,13 +40,19 @@ public class CompteListPage extends CompteTemplate {
 		
 		add(
 			DataTableBuilder.start(compteDataProvider, compteDataProvider.getSortModel())
+				.addLabelColumn(new ResourceModel("business.compte.portefeuille"), Bindings.compte().portefeuille().nom())
+					.withLink(Bindings.compte().portefeuille(), PortefeuilleDetailPage.MAPPER)
+					.withSort(CompteSort.PORTEFEUILLE_NOM, SortIconStyle.ALPHABET, CycleMode.DEFAULT_REVERSE)
+					.withClass("text text-md align-middle")
 				.addLabelColumn(new ResourceModel("business.compte.label"), Bindings.compte().label())
 					.withLink(CompteDetailPage.MAPPER)
 					.withSort(CompteSort.LABEL, SortIconStyle.ALPHABET, CycleMode.DEFAULT_REVERSE)
 					.withClass("text text-md align-middle")
 				.addLabelColumn(new ResourceModel("business.compte.fondsDisponibles"), Bindings.compte().fondsDisponibles())
+					.withSort(CompteSort.FONDS_DISPONIBLES, SortIconStyle.NUMERIC, CycleMode.DEFAULT_REVERSE)
 					.withClass("text text-sm align-middle")
 				.addLabelColumn(new ResourceModel("business.compte.typeCompte"), Bindings.compte().type())
+				.withSort(CompteSort.TYPE_COMPTE, SortIconStyle.DEFAULT, CycleMode.DEFAULT_REVERSE)
 					.withClass("text text-sm align-middle")
 				.bootstrapCard()
 					.ajaxPagers()

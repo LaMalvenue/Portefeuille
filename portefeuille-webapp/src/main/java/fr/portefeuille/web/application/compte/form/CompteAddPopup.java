@@ -62,6 +62,7 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 		form.add(
 			new EnumDropDownSingleChoice<>("typeCompte", BindingModel.of(compteModel, Bindings.compte().type()), TypeCompte.class)
 				.setLabel(new ResourceModel("business.compte.typeCompte"))
+				// TODO AROUV : Sélectionner un élément par défaut dans le dropdown
 				.setRequired(true)
 		);
 		
