@@ -111,7 +111,7 @@ public class Compte extends GenericEntity<Long, Compte> {
 
 	public void setFondsDisponibles(double fondsDisponibles) {
 		this.fondsDisponibles = fondsDisponibles;
-		this.portefeuille.setFondsTotauxDisponibles(this.portefeuille.getFondsTotauxDisponibles() + this.fondsDisponibles);
+		//this.portefeuille.setFondsTotauxDisponibles(this.portefeuille.getFondsTotauxDisponibles() + this.fondsDisponibles);
 	}
 
 	public TypeCompte getType() {

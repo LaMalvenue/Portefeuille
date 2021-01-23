@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.bindgen.Bindable;
 import org.hibernate.annotations.SortComparator;
@@ -54,10 +55,6 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 	@SortComparator(CompteComparator.class)
 	@ContainedIn
 	private SortedSet<Compte> comptes = Sets.newTreeSet(CompteComparator.get());
-	
-	// TODO supprimer cet attribut inutile
-	@Basic(optional = false)
-	private double fondsTotauxDisponibles;
 
 	@Override
 	public Long getId() {
@@ -85,12 +82,15 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 		CollectionUtils.replaceAll(this.comptes, comptes);
 	}
 
+	@Transient
 	public double getFondsTotauxDisponibles() {
+		double fondsTotauxDisponibles = 0;
+		if (!this.getComptes().isEmpty()) {
+			for (Compte compte : this.getComptes()) {
+				fondsTotauxDisponibles += compte.getFondsDisponibles();
+			}
+		}
 		return fondsTotauxDisponibles;
-	}
-
-	public void setFondsTotauxDisponibles(double fondsTotauxDisponibles) {
-		this.fondsTotauxDisponibles = fondsTotauxDisponibles;
 	}
 
 	public boolean addCompte(Compte compte) {
