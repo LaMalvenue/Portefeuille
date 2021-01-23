@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.webjars.npm:popper.js:1.16.1-lts">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/npm/popper.js/1.16.1-lts/popper.js-1.16.1-lts.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/npm/popper.js/1.16.1-lts/popper.js-1.16.1-lts-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/npm/popper.js/1.16.1-lts/popper.js-1.16.1-lts-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

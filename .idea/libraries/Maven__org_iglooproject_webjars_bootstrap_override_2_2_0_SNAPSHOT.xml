@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.iglooproject.webjars:bootstrap-override:2.2.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/iglooproject/webjars/bootstrap-override/2.2.0-SNAPSHOT/bootstrap-override-2.2.0-20201118.124523-20.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/iglooproject/webjars/bootstrap-override/2.2.0-SNAPSHOT/bootstrap-override-2.2.0-20201118.124523-20-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/iglooproject/webjars/bootstrap-override/2.2.0-SNAPSHOT/bootstrap-override-2.2.0-20201118.124523-20-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

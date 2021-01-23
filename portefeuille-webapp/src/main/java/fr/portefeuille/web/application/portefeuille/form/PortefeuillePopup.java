@@ -42,7 +42,7 @@ public class PortefeuillePopup extends AbstractAjaxModalPopupPanel<Portefeuille>
 
 	private final PortefeuilleBindableModel bindableModel;
 
-	protected Form<Portefeuille> form;	
+	protected Form<Portefeuille> form;
 	protected final IModel<FormMode> formModeModel = new Model<>(FormMode.ADD);
 
 	public PortefeuillePopup(String id) {

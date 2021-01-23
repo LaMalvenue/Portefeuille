@@ -6,6 +6,7 @@ import org.apache.wicket.Session;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -57,13 +58,24 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 		
 		IModel<Compte> compteModel = getModel();
 		
+		// Le label ne s'enregistre pas
+		IModel<String> labelModel = BindingModel.of(compteModel, Bindings.compte().label());
+		TextField<String> label = new TextField<>("label", labelModel, String.class);
+		
+		IModel<Double> fondsDisponiblesModel = BindingModel.of(compteModel, Bindings.compte().fondsDisponibles());
+		TextField<Double> fondsDisponibles = new TextField<>("fondsDisponibles", fondsDisponiblesModel, Double.class);
+		
 		form = new Form<>("form");
 		
 		form.add(
 			new EnumDropDownSingleChoice<>("typeCompte", BindingModel.of(compteModel, Bindings.compte().type()), TypeCompte.class)
 				.setLabel(new ResourceModel("business.compte.typeCompte"))
 				// TODO AROUV : Sélectionner un élément par défaut dans le dropdown
-				.setRequired(true)
+				.setRequired(true),
+			label
+				.setLabel(new ResourceModel("business.compte.label")),
+			fondsDisponibles
+				.setLabel(new ResourceModel("business.compte.fondsDisponibles"))
 		);
 		
 		body.add(form);

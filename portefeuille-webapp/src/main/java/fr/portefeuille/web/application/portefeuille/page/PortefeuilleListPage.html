@@ -5,7 +5,6 @@
 	<div wicket:id="popup"/>
 	
 	<div class="content-container">
-	
 		<div class="content-header-section">
 			<div class="content-header-container">
 				<div class="content-header">
@@ -21,10 +20,6 @@
 											<span class="fa fa-fw fa-plus" />
 											<wicket:message key="common.action.create" />
 										</button>
-										<a wicket:id="addPage" class="btn btn-secondary">
-											<span class="fa fa-fw fa-plus" />
-											<wicket:message key="common.action.create" />
-										</a>
 									</div>
 								</div>
 							</div>
@@ -33,21 +28,21 @@
 				</div>
 			</div>
 		</div>
-		
 		<div class="content-body-section">
 			<div class="content-body-container">
 				<div class="content-body">
 					<div class="row row-md">
-					
 						<div class="col-12">
 							<div wicket:id="resultats" class="card card-page" />
 						</div>
-						
 					</div>
 				</div>
 			</div>
 		</div>
-		
 	</div>
+	
+	<wicket:fragment wicket:id="fondsDisponiblesFragment">
+		<div wicket:id="fondsDisponibles" />
+	</wicket:fragment>
 </wicket:extend>
 </html>

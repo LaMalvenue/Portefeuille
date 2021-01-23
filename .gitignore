@@ -3,3 +3,6 @@ target2
 .classpath
 .project
 .settings
+.idea
+.idea/
+.idea/*

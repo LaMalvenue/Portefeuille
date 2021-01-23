@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/portefeuille.iml" filepath="$PROJECT_DIR$/portefeuille.iml" />
+      <module fileurl="file://$PROJECT_DIR$/portefeuille-core/portefeuille-core.iml" filepath="$PROJECT_DIR$/portefeuille-core/portefeuille-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/portefeuille-webapp/portefeuille-webapp.iml" filepath="$PROJECT_DIR$/portefeuille-webapp/portefeuille-webapp.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="portefeuille-webapp:war">
+    <output-path>$PROJECT_DIR$/portefeuille-webapp/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>portefeuille-webapp</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="portefeuille.war">
+      <element id="artifact" artifact-name="portefeuille-webapp:war exploded" />
+    </root>
+  </artifact>
+</component>

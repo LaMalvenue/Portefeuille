@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Annotation profile for Portefeuille" enabled="true">
+        <sourceOutputDir name="target/generated-sources/apt" />
+        <sourceTestOutputDir name="target/generated-sources/apt-test" />
+        <outputRelativeToContentRoot value="true" />
+        <processor name="com.querydsl.apt.jpa.JPAAnnotationProcessor" />
+        <processor name="org.bindgen.processor.Processor" />
+        <module name="portefeuille-webapp" />
+        <module name="portefeuille-core" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="portefeuille" target="1.5" />
+      <module name="portefeuille-core" target="1.8" />
+      <module name="portefeuille-webapp" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="portefeuille-core" options="-proc:none" />
+      <module name="portefeuille-webapp" options="-proc:none" />
+    </option>
+  </component>
+</project>
