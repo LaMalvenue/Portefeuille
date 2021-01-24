@@ -21,14 +21,14 @@ public class CompteDataProvider extends AbstractSearchQueryDataProvider<Compte, 
 
 	private static final long serialVersionUID = 3864000715169877412L;
 
-	private IModel<Portefeuille> portefeuilleModel = new GenericEntityModel<>();
+	private IModel<Portefeuille> portefeuilleModel = new GenericEntityModel<>(Portefeuille.get());
 	private final IModel<String> textModel = Model.of();
 	private final IModel<TypeCompte> typeCompteModel = Model.of();
 
 	private final CompositeSortModel<CompteSort> sortModel = new CompositeSortModel<>(
 		CompositingStrategy.LAST_ONLY,
 		ImmutableMap.of(
-			CompteSort.PORTEFEUILLE_NOM, CompteSort.PORTEFEUILLE_NOM.getDefaultOrder()
+			CompteSort.TYPE_COMPTE, CompteSort.TYPE_COMPTE.getDefaultOrder()
 		),
 		ImmutableMap.of(
 			CompteSort.ID, CompteSort.ID.getDefaultOrder()
@@ -42,10 +42,6 @@ public class CompteDataProvider extends AbstractSearchQueryDataProvider<Compte, 
 
 	public IModel<Portefeuille> getPortefeuilleModel() {
 		return portefeuilleModel;
-	}
-
-	public void setPortefeuilleModel(IModel<Portefeuille> portefeuilleModel) {
-		this.portefeuilleModel = portefeuilleModel;
 	}
 
 	public IModel<String> getTextModel() {
@@ -65,7 +61,6 @@ public class CompteDataProvider extends AbstractSearchQueryDataProvider<Compte, 
 		return createSearchQuery(ICompteSearchQuery.class)
 			.text(textModel.getObject())
 			.typeCompte(typeCompteModel.getObject())
-			.portefeuille(portefeuilleModel.getObject())
 			.sort(sortModel.getObject());
 	}
 

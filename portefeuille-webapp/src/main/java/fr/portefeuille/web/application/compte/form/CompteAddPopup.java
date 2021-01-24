@@ -18,7 +18,6 @@ import org.iglooproject.wicket.more.markup.html.template.js.bootstrap.modal.comp
 import org.iglooproject.wicket.more.markup.html.template.js.bootstrap.modal.component.DelegatedMarkupPanel;
 import org.iglooproject.wicket.more.model.BindingModel;
 import org.iglooproject.wicket.more.model.GenericEntityModel;
-import org.iglooproject.wicket.more.util.model.Detachables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,13 +37,10 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 	@SpringBean
 	private IPortefeuilleService portefeuilleService;
 	
-	private IModel<Portefeuille> portefeuilleModel;
-
 	private Form<Compte> form;
 
-	public CompteAddPopup(String id, IModel<Portefeuille> portefeuilleModel) {
+	public CompteAddPopup(String id) {
 		super(id, GenericEntityModel.of(new Compte()));
-		this.portefeuilleModel = portefeuilleModel;
 	}
 
 	@Override
@@ -95,7 +91,10 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 					try {
 						Compte compte = CompteAddPopup.this.getModelObject();
 						
-						portefeuilleService.addCompte(portefeuilleModel.getObject(), compte);
+						if (Portefeuille.get().isNew()) {
+							portefeuilleService.create(Portefeuille.get());
+						} 
+						portefeuilleService.addCompte(compte);
 						
 						Session.get().success(getString("common.success"));
 						
@@ -128,12 +127,6 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 	protected void onShow(AjaxRequestTarget target) {
 		super.onShow(target);
 		getModel().setObject(new Compte());
-	}
-	
-	@Override
-	protected void onDetach() {
-		super.onDetach();
-		Detachables.detach(portefeuilleModel);
 	}
 
 }

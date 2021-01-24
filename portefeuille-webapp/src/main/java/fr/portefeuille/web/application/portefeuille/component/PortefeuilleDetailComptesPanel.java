@@ -43,16 +43,15 @@ public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
 
 	private CompteAddPopup addComptePopup;
 
-	public PortefeuilleDetailComptesPanel(String id, final IModel<Portefeuille> portefeuilleModel) {
-		super(id, portefeuilleModel);
+	public PortefeuilleDetailComptesPanel(String id) {
+		super(id);
 		
 		CompteDataProvider compteDataProvider;
 		
 		setOutputMarkupId(true);
-		add(addComptePopup= new CompteAddPopup("addComptePopup", portefeuilleModel));
+		add(addComptePopup= new CompteAddPopup("addComptePopup"));
 		
 		compteDataProvider = new CompteDataProvider();
-		compteDataProvider.setPortefeuilleModel(portefeuilleModel);
 		
 		add(
 			DataTableBuilder.start(compteDataProvider, compteDataProvider.getSortModel())
@@ -89,7 +88,7 @@ public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
 					.end()
 					.withClass("actions actions-1x")
 				.bootstrapCard()
-					.addIn(AddInPlacement.FOOTER_RIGHT, (wicketId, table) -> new CompteAddFragment(wicketId, portefeuilleModel))
+					.addIn(AddInPlacement.FOOTER_RIGHT, (wicketId, table) -> new CompteAddFragment(wicketId))
 					.ajaxPager(AddInPlacement.HEADING_RIGHT)
 					.count("portefeuille.detail.comptes.count")
 				.build("results", propertyService.get(PortefeuilleWebappPropertyIds.PORTFOLIO_ITEMS_PER_PAGE))
@@ -100,7 +99,7 @@ public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
 		
 		private static final long serialVersionUID = 1L;
 		
-		public CompteAddFragment(String id, IModel<Portefeuille> portefeuilleModel) {
+		public CompteAddFragment(String id) {
 			super(id, "addCompte", PortefeuilleDetailComptesPanel.this);
 			
 			add(

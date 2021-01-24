@@ -17,97 +17,59 @@
 				<div class="content-body-container">
 					<div class="content-body">
 						<div class="row row-md">
-							<div wicket:enclosure-component="portefeuilles" class="col-md-6 col-lg-4 col-xl-4">
-								<div class="card card-page h-100">
-									<div class="card-body card-img-top flex-grow-0 bg-primary text-center">
-										<span class="fa fa-fw fa-5x fa-wallet" />
-									</div>
+							<div class="col-lg-6">
+								<div class="card card-page">
 									<div class="card-header">
 										<h5 class="card-header-title">
-											<wicket:message key="homePage.navigation.portefeuilles.title" />
+											<wicket:message key="portefeuille.detail.description" />
 										</h5>
 									</div>
-									<div class="card-body d-flex flex-column">
-										<div>
-											<wicket:message key="homePage.navigation.portefeuilles.description" />
-										</div>
-										<div class="mt-auto">
-											<div class="card-action">
-												<div class="row row-action justify-content-end">
-													<div class="col-auto">
-														<a wicket:id="portefeuilles" class="btn btn-outline-primary stretched-link">
-															<span class="fa fa-fw fa-wallet" />
-															<wicket:message key="homePage.navigation.portefeuilles.link" />
-														</a>
+									<div class="card-body">
+										<div class="row row-description">
+											<div class="col-12">
+												<div class="row row-description-group description-group">
+													<div class="col-md-4">
+														<div class="description-label">
+															<wicket:message key="business.portefeuille.nom" />
+														</div>
+													</div>
+													<div class="col-md-8">
+														<div class="description-value">
+															<span wicket:id="nom" />
+														</div>
 													</div>
 												</div>
+												<div class="row row-description-group description-group">
+													<div class="col-md-4">
+														<div class="description-label">
+															<wicket:message key="business.portefeuille.fondsTotauxDisponibles" />
+														</div>
+													</div>
+													<div class="col-md-8">
+														<div class="description-value">
+															<span wicket:id="fondsTotauxDisponibles" />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card-action">
+											<div class="row row-action justify-content-end">
+												<button class="btn btn-primary" type="button">
+													<span class="fa fa-fw fa-edit" /> 
+													<wicket:message key="common.action.edit" />
+												</button>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div wicket:enclosure-component="comptes" class="col-md-6 col-lg-4 col-xl-4">
-								<div class="card card-page h-100">
-									<div class="card-body card-img-top flex-grow-0 bg-primary text-center">
-										<span class="fa fa-fw fa-5x fa-credit-card" />
-									</div>
-									<div class="card-header">
-										<h5 class="card-header-title">
-											<wicket:message key="homePage.navigation.comptes.title" />
-										</h5>
-									</div>
-									<div class="card-body d-flex flex-column">
-										<div>
-											<wicket:message key="homePage.navigation.comptes.description" />
-										</div>
-										<div class="mt-auto">
-											<div class="card-action">
-												<div class="row row-action justify-content-end">
-													<div class="col-auto">
-														<a wicket:id="comptes" class="btn btn-outline-primary stretched-link">
-															<span class="fa fa-fw fa-credit-card" />
-															<wicket:message key="homePage.navigation.comptes.link" />
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div wicket:enclosure-component="operations" class="col-md-6 col-lg-4 col-xl-4">
-								<div class="card card-page h-100">
-									<div class="card-body card-img-top flex-grow-0 bg-secondary text-center">
-										<span class="fa fa-fw fa-5x fa-euro-sign" />
-									</div>
-									<div class="card-header">
-										<h5 class="card-header-title">
-											<wicket:message key="homePage.navigation.operations.title" />
-										</h5>
-									</div>
-									<div class="card-body d-flex flex-column">
-										<div>
-											<wicket:message key="homePage.navigation.operations.description" />
-										</div>
-										<div class="mt-auto">
-											<div class="card-action">
-												<div class="row row-action justify-content-end">
-													<div class="col-auto">
-														<a wicket:id="operations" class="btn btn-outline-secondary stretched-link">
-															<span class="fa fa-fw fa-list" />
-															<wicket:message key="homePage.navigation.operations.link" />
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							<div wicket:id="comptes" class="col-lg-6" />
 						</div>
 					</div>
 				</div>
 			</div>
+			
 		</div>
 	</wicket:extend>
 </html>

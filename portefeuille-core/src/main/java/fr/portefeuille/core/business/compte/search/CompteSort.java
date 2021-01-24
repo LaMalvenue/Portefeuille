@@ -29,22 +29,6 @@ public enum CompteSort implements ISort<SortField>{
 		}
 	},
 
-	PORTEFEUILLE_NOM {
-		@Override
-		public List<SortField> getSortFields(SortOrder sortOrder) {
-			return ImmutableList.of(
-				SortUtils.luceneSortField(
-					this, sortOrder, SortField.Type.STRING,
-					Compte.PORTEFEUILLE_NOM_SORT
-				)	
-			);
-		}
-		@Override
-		public SortOrder getDefaultOrder() {
-			return SortOrder.ASC;
-		}
-	},
-
 	LABEL {
 		@Override
 		public List<SortField> getSortFields(SortOrder sortOrder) {

@@ -9,8 +9,6 @@ import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
 
 public interface IPortefeuilleService extends IGenericEntityService<Long, Portefeuille> {
 
-	void savePortefeuille(Portefeuille portefeuille) throws ServiceException, SecurityServiceException;
-
-	void addCompte(Portefeuille portefeuille, Compte compte) throws ServiceException, SecurityServiceException;
+	void addCompte(Compte compte) throws ServiceException, SecurityServiceException;
 
 }

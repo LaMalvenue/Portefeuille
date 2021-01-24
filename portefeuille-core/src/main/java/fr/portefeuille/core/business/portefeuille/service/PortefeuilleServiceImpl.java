@@ -25,28 +25,7 @@ public class PortefeuilleServiceImpl extends GenericEntityServiceImpl<Long, Port
 	}
 
 	@Override
-	public void savePortefeuille(Portefeuille portefeuille) throws ServiceException, SecurityServiceException {
-		Objects.requireNonNull(portefeuille);
-		
-		if (portefeuille.isNew()) {
-			create(portefeuille);
-		} else {
-			update(portefeuille);
-		}
-		
-		for (Compte compte : portefeuille.getComptes()) {
-			if (compte.isNew()) {
-				compte.setPortefeuille(portefeuille);
-				compteService.create(compte);
-			} else {
-				compteService.update(compte);
-			}
-		}
-	}
-
-	@Override
-	public void addCompte(Portefeuille portefeuille, Compte compte) throws ServiceException, SecurityServiceException {
-		Objects.requireNonNull(portefeuille);
+	public void addCompte(Compte compte) throws ServiceException, SecurityServiceException {
 		Objects.requireNonNull(compte);
 		
 		if (compte.getType().equals(TypeCompte.LIQUIDE)) {
@@ -62,11 +41,9 @@ public class PortefeuilleServiceImpl extends GenericEntityServiceImpl<Long, Port
 			compte.setLabel("Carte restaurant");
 		}
 		
-		compte.setPortefeuille(portefeuille);
 		compteService.create(compte);
 		
-		portefeuille.addCompte(compte);
-		update(portefeuille);
+		Portefeuille.get().addCompte(compte);
 	}
 
 }

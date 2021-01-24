@@ -23,7 +23,6 @@ import fr.portefeuille.core.util.binding.Bindings;
 import fr.portefeuille.web.application.common.renderer.CommonRenderers;
 import fr.portefeuille.web.application.compte.model.CompteDataProvider;
 import fr.portefeuille.web.application.compte.template.CompteTemplate;
-import fr.portefeuille.web.application.portefeuille.page.PortefeuilleDetailPage;
 
 public class CompteListPage extends CompteTemplate {
 
@@ -50,10 +49,6 @@ public class CompteListPage extends CompteTemplate {
 		
 		add(
 			DataTableBuilder.start(compteDataProvider, compteDataProvider.getSortModel())
-				.addLabelColumn(new ResourceModel("business.compte.portefeuille"), Bindings.compte().portefeuille().nom())
-					.withLink(Bindings.compte().portefeuille(), PortefeuilleDetailPage.MAPPER)
-					.withSort(CompteSort.PORTEFEUILLE_NOM, SortIconStyle.ALPHABET, CycleMode.DEFAULT_REVERSE)
-					.withClass("text text-md align-middle")
 				.addLabelColumn(new ResourceModel("business.compte.label"), Bindings.compte().label())
 					.withLink(CompteDetailPage.MAPPER)
 					.withSort(CompteSort.LABEL, SortIconStyle.ALPHABET, CycleMode.DEFAULT_REVERSE)

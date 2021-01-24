@@ -68,9 +68,6 @@ import fr.portefeuille.web.application.history.renderer.HistoryValueRenderer;
 import fr.portefeuille.web.application.navigation.page.HomePage;
 import fr.portefeuille.web.application.navigation.page.MaintenancePage;
 import fr.portefeuille.web.application.operation.page.OperationListPage;
-import fr.portefeuille.web.application.portefeuille.page.PortefeuilleCreatePage;
-import fr.portefeuille.web.application.portefeuille.page.PortefeuilleDetailPage;
-import fr.portefeuille.web.application.portefeuille.page.PortefeuilleListPage;
 import fr.portefeuille.web.application.profile.page.ProfilePage;
 import fr.portefeuille.web.application.referencedata.page.ReferenceDataPage;
 import fr.portefeuille.web.application.resources.application.PortefeuilleApplicationResources;
@@ -177,11 +174,6 @@ public class PortefeuilleApplication extends CoreWicketAuthenticatedApplication 
 		
 		// Reference data
 		mountPage("/reference-data/", ReferenceDataPage.class);
-		
-		// Portefeuilles
-		mountPage("/portefeuilles/", PortefeuilleListPage.class);
-		mountPage("/portefeuilles/ajouter/", PortefeuilleCreatePage.class);
-		mountParameterizedPage("/portefeuilles/detail/", PortefeuilleDetailPage.class);
 		
 		// Comptes
 		mountPage("/comptes/", CompteListPage.class);

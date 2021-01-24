@@ -40,17 +40,11 @@ import fr.portefeuille.core.security.service.IPortefeuilleAuthenticationService;
 import fr.portefeuille.core.security.service.ISecurityManagementService;
 import fr.portefeuille.web.application.PortefeuilleApplication;
 import fr.portefeuille.web.application.PortefeuilleSession;
-import fr.portefeuille.web.application.administration.page.AdministrationAnnouncementListPage;
-import fr.portefeuille.web.application.administration.page.AdministrationBasicUserListPage;
-import fr.portefeuille.web.application.administration.page.AdministrationTechnicalUserListPage;
-import fr.portefeuille.web.application.administration.page.AdministrationUserGroupListPage;
 import fr.portefeuille.web.application.common.component.AnnouncementsPanel;
 import fr.portefeuille.web.application.common.template.theme.PortefeuilleApplicationTheme;
 import fr.portefeuille.web.application.common.template.theme.common.BootstrapBreakpointPanel;
 import fr.portefeuille.web.application.compte.page.CompteListPage;
 import fr.portefeuille.web.application.operation.page.OperationListPage;
-import fr.portefeuille.web.application.portefeuille.page.PortefeuilleListPage;
-import fr.portefeuille.web.application.referencedata.page.ReferenceDataPage;
 import fr.portefeuille.web.application.security.password.page.SecurityPasswordExpirationPage;
 
 public abstract class MainTemplate extends AbstractWebPageTemplate {
@@ -119,32 +113,13 @@ public abstract class MainTemplate extends AbstractWebPageTemplate {
 		return ImmutableList.of(
 			PortefeuilleApplication.get().getHomePageLinkDescriptor()
 				.navigationMenuItem(new ResourceModel("navigation.home"))
-				.iconClasses(Model.of("fa fa-fw fa-home")),
-			PortefeuilleListPage.linkDescriptor()
-				.navigationMenuItem(new ResourceModel("navigation.portefeuille"))
-				.iconClasses(Model.of("fa fa-fw fas fa-wallet")),
+				.iconClasses(Model.of("fa fa-fw fa-wallet")),
 			CompteListPage.linkDescriptor()
 				.navigationMenuItem(new ResourceModel("navigation.compte"))
 				.iconClasses(Model.of("fa fa-fw fas fa-credit-card")),
 			OperationListPage.linkDescriptor()
 				.navigationMenuItem(new ResourceModel("navigation.operation"))
 				.iconClasses(Model.of("fa fa-fw fas fa-euro-sign")),
-			ReferenceDataPage.linkDescriptor()
-				.navigationMenuItem(new ResourceModel("navigation.referenceData"))
-				.iconClasses(Model.of("fa fa-fw fa-list")),
-			new NavigationMenuItem(new ResourceModel("navigation.administration"))
-				.iconClasses(Model.of("fa fa-fw fa-cogs"))
-				.subMenuForceOpen()
-				.subMenuItems(
-					AdministrationBasicUserListPage.linkDescriptor()
-						.navigationMenuItem(new ResourceModel("navigation.administration.user.basicUser")),
-					AdministrationTechnicalUserListPage.linkDescriptor()
-						.navigationMenuItem(new ResourceModel("navigation.administration.user.technicalUser")),
-					AdministrationUserGroupListPage.linkDescriptor()
-						.navigationMenuItem(new ResourceModel("navigation.administration.userGroup")),
-					AdministrationAnnouncementListPage.linkDescriptor()
-						.navigationMenuItem(new ResourceModel("navigation.administration.announcement"))
-				),
 			LinkDescriptorBuilder.start()
 				.validator(Condition.role(PortefeuilleAuthorityConstants.ROLE_ADMIN))
 				.page(ConsoleMaintenanceSearchPage.class)
