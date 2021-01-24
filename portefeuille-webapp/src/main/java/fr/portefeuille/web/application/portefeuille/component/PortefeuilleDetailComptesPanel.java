@@ -43,15 +43,16 @@ public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
 
 	private CompteAddPopup addComptePopup;
 
-	public PortefeuilleDetailComptesPanel(String id) {
-		super(id);
+	public PortefeuilleDetailComptesPanel(String id, final IModel<Portefeuille> portefeuilleModel) {
+		super(id, portefeuilleModel);
 		
 		CompteDataProvider compteDataProvider;
 		
 		setOutputMarkupId(true);
-		add(addComptePopup= new CompteAddPopup("addComptePopup"));
+		add(addComptePopup= new CompteAddPopup("addComptePopup", portefeuilleModel));
 		
 		compteDataProvider = new CompteDataProvider();
+		compteDataProvider.setPortefeuilleModel(portefeuilleModel);
 		
 		add(
 			DataTableBuilder.start(compteDataProvider, compteDataProvider.getSortModel())

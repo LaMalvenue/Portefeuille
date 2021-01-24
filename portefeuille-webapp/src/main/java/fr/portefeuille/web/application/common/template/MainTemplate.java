@@ -112,8 +112,8 @@ public abstract class MainTemplate extends AbstractWebPageTemplate {
 	protected List<NavigationMenuItem> getMainNav() {
 		return ImmutableList.of(
 			PortefeuilleApplication.get().getHomePageLinkDescriptor()
-				.navigationMenuItem(new ResourceModel("navigation.home"))
-				.iconClasses(Model.of("fa fa-fw fa-wallet")),
+				.navigationMenuItem(new ResourceModel("navigation.portefeuille"))
+				.iconClasses(Model.of("fa fa-fw fas fa-wallet")),
 			CompteListPage.linkDescriptor()
 				.navigationMenuItem(new ResourceModel("navigation.compte"))
 				.iconClasses(Model.of("fa fa-fw fas fa-credit-card")),

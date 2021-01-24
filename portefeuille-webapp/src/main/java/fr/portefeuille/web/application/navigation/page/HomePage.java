@@ -1,24 +1,38 @@
 package fr.portefeuille.web.application.navigation.page;
+import static fr.portefeuille.web.application.property.PortefeuilleWebappPropertyIds.PORTFOLIO_ITEMS_PER_PAGE;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.ResourceModel;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.iglooproject.spring.property.service.IPropertyService;
 import org.iglooproject.wicket.markup.html.basic.CoreLabel;
 import org.iglooproject.wicket.more.condition.Condition;
 import org.iglooproject.wicket.more.link.descriptor.IPageLinkDescriptor;
 import org.iglooproject.wicket.more.link.descriptor.builder.LinkDescriptorBuilder;
+import org.iglooproject.wicket.more.markup.html.link.BlankLink;
+import org.iglooproject.wicket.more.markup.html.template.js.bootstrap.modal.behavior.AjaxModalOpenBehavior;
 import org.iglooproject.wicket.more.markup.html.template.model.BreadCrumbElement;
+import org.iglooproject.wicket.more.markup.repeater.table.DecoratedCoreDataTablePanel;
+import org.iglooproject.wicket.more.markup.repeater.table.builder.DataTableBuilder;
+import org.iglooproject.wicket.more.markup.repeater.table.column.AbstractCoreColumn;
 import org.iglooproject.wicket.more.model.BindingModel;
-import org.iglooproject.wicket.more.model.GenericEntityModel;
+import org.wicketstuff.wiquery.core.events.MouseEvent;
 
 import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
+import fr.portefeuille.core.business.portefeuille.search.PortefeuilleSort;
 import fr.portefeuille.core.business.portefeuille.service.IPortefeuilleService;
 import fr.portefeuille.core.util.binding.Bindings;
+import fr.portefeuille.web.application.common.renderer.CommonRenderers;
 import fr.portefeuille.web.application.common.template.MainTemplate;
-import fr.portefeuille.web.application.portefeuille.component.PortefeuilleDetailComptesPanel;
+import fr.portefeuille.web.application.portefeuille.form.PortefeuillePopup;
+import fr.portefeuille.web.application.portefeuille.model.PortefeuilleDataProvider;
+import fr.portefeuille.web.application.portefeuille.page.PortefeuilleDetailPage;
 
 public class HomePage extends MainTemplate {
 
@@ -26,6 +40,9 @@ public class HomePage extends MainTemplate {
 
 	@SpringBean
 	private IPortefeuilleService portefeuilleService;
+	
+	@SpringBean
+	private IPropertyService propertyService;
 
 	public static final IPageLinkDescriptor linkDescriptor() {
 		return LinkDescriptorBuilder.start()
@@ -42,15 +59,45 @@ public class HomePage extends MainTemplate {
 		
 		add(new CoreLabel("pageTitle", new ResourceModel("home.pageTitle")));
 		
-		IModel<Portefeuille> portefeuilleModel = new GenericEntityModel<>(Portefeuille.get());
+		PortefeuillePopup popup = new PortefeuillePopup("popup");
+		
+		// TODO Ajouter une condition pour l'affichage du Popup/Tableau, pour qu'on puisse n'en créer qu'un seul
+		add(
+			popup,
+			new BlankLink("add")
+			.add(new AjaxModalOpenBehavior(popup, MouseEvent.CLICK) {
+				private static final long serialVersionUID = 1L;
+				@Override
+				protected void onShow(AjaxRequestTarget target) {
+					popup.setUpAdd();
+				}
+			})
+		);
+		
+		PortefeuilleDataProvider portefeuilleDataProvider = new PortefeuilleDataProvider();
+		
+		DecoratedCoreDataTablePanel<?, ?> resultats = 
+			DataTableBuilder.start(portefeuilleDataProvider, portefeuilleDataProvider.getSortModel())
+				.addLabelColumn(new ResourceModel("business.portefeuille.nom"), Bindings.portefeuille().nom())
+					.withLink(PortefeuilleDetailPage.MAPPER)
+					.withClass("text text-md align-middle")
+				.addColumn(
+					new AbstractCoreColumn<Portefeuille, PortefeuilleSort>(new ResourceModel("business.portefeuille.fondsTotauxDisponibles")) {
+						private static final long serialVersionUID = 1L;
+						@Override
+						public void populateItem(Item<ICellPopulator<Portefeuille>> cellItem, String componentId, IModel<Portefeuille> rowModel) {
+							cellItem.add(
+								new FondsDisponiblesFragment(componentId, rowModel)
+							);
+						}
+					}
+				)
+				.bootstrapCard()
+					.ajaxPagers()
+					.build("resultats", propertyService.get(PORTFOLIO_ITEMS_PER_PAGE));
 		
 		add(
-			new CoreLabel("title", new StringResourceModel("portefeuille.detail.title.param", portefeuilleModel)),
-			new CoreLabel("nom", BindingModel.of(portefeuilleModel, Bindings.portefeuille().nom()))
-				.showPlaceholder(),
-			new CoreLabel("fondsTotauxDisponibles", BindingModel.of(portefeuilleModel, Bindings.portefeuille().fondsTotauxDisponibles()))
-				.showPlaceholder(),
-			new PortefeuilleDetailComptesPanel("comptes")
+			resultats
 		);
 	}
 
@@ -64,4 +111,19 @@ public class HomePage extends MainTemplate {
 		return HomePage.class;
 	}
 
+	private class FondsDisponiblesFragment extends Fragment {
+
+		private static final long serialVersionUID = 1L;
+
+		public FondsDisponiblesFragment(String id, final IModel<Portefeuille> portefeuilleModel) {
+			super(id, "fondsDisponiblesFragment", HomePage.this);
+
+			IModel<Double> fondsDisponiblesModel = BindingModel.of(portefeuilleModel, Bindings.portefeuille().fondsTotauxDisponibles());
+
+			add(
+				new CoreLabel("fondsDisponibles", CommonRenderers.sommeEuros().asModel(fondsDisponiblesModel))
+			);
+
+		}
+	}
 }

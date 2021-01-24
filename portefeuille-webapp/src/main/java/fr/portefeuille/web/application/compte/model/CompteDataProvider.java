@@ -21,7 +21,7 @@ public class CompteDataProvider extends AbstractSearchQueryDataProvider<Compte, 
 
 	private static final long serialVersionUID = 3864000715169877412L;
 
-	private IModel<Portefeuille> portefeuilleModel = new GenericEntityModel<>(Portefeuille.get());
+	private IModel<Portefeuille> portefeuilleModel = new GenericEntityModel<>();
 	private final IModel<String> textModel = Model.of();
 	private final IModel<TypeCompte> typeCompteModel = Model.of();
 
@@ -44,6 +44,10 @@ public class CompteDataProvider extends AbstractSearchQueryDataProvider<Compte, 
 		return portefeuilleModel;
 	}
 
+	public void setPortefeuilleModel(IModel<Portefeuille> portefeuilleModel) {
+		this.portefeuilleModel = portefeuilleModel;
+	}
+
 	public IModel<String> getTextModel() {
 		return textModel;
 	}
@@ -61,6 +65,7 @@ public class CompteDataProvider extends AbstractSearchQueryDataProvider<Compte, 
 		return createSearchQuery(ICompteSearchQuery.class)
 			.text(textModel.getObject())
 			.typeCompte(typeCompteModel.getObject())
+			.portefeuille(portefeuilleModel.getObject())
 			.sort(sortModel.getObject());
 	}
 

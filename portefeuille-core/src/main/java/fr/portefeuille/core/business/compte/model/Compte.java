@@ -19,11 +19,14 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Normalizer;
 import org.hibernate.search.annotations.SortableField;
 import org.iglooproject.commons.util.collections.CollectionUtils;
 import org.iglooproject.jpa.business.generic.model.GenericEntity;
+import org.iglooproject.jpa.search.bridge.GenericEntityIdFieldBridge;
 import org.iglooproject.jpa.search.util.HibernateSearchAnalyzer;
 import org.iglooproject.jpa.search.util.HibernateSearchNormalizer;
 
@@ -45,6 +48,11 @@ public class Compte extends GenericEntity<Long, Compte> {
 	public static final String FONDS_DISPONIBLES = "fondsDisponibles";
 
 	public static final String TYPE = "type";
+
+	public static final String PORTEFEUILLE = "portefeuille";
+	public static final String PORTEFEUILLE_PREFIX = PORTEFEUILLE + ".";
+	public static final String PORTEFEUILLE_NOM = PORTEFEUILLE_PREFIX + Portefeuille.NOM;
+	public static final String PORTEFEUILLE_NOM_SORT = PORTEFEUILLE_PREFIX + Portefeuille.NOM_SORT;
 
 	@Id
 	@DocumentId
@@ -73,8 +81,10 @@ public class Compte extends GenericEntity<Long, Compte> {
 	@ContainedIn
 	private SortedSet<Operation> operations;
 
+	@Field(name = PORTEFEUILLE, bridge = @FieldBridge(impl = GenericEntityIdFieldBridge.class))
+	@IndexedEmbedded(prefix = PORTEFEUILLE_PREFIX)
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private Portefeuille portefeuille = Portefeuille.get();  
+	private Portefeuille portefeuille;  
 	
 	@Override
 	public Long getId() {
@@ -120,6 +130,10 @@ public class Compte extends GenericEntity<Long, Compte> {
 
 	public Portefeuille getPortefeuille() {
 		return portefeuille;
+	}
+
+	public void setPortefeuille(Portefeuille portefeuille) {
+		this.portefeuille = portefeuille;
 	}
 
 }

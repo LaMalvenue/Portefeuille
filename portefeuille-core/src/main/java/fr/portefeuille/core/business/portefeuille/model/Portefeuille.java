@@ -13,11 +13,17 @@ import javax.persistence.Transient;
 
 import org.bindgen.Bindable;
 import org.hibernate.annotations.SortComparator;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Normalizer;
+import org.hibernate.search.annotations.SortableField;
 import org.iglooproject.commons.util.collections.CollectionUtils;
 import org.iglooproject.jpa.business.generic.model.GenericEntity;
+import org.iglooproject.jpa.search.util.HibernateSearchAnalyzer;
+import org.iglooproject.jpa.search.util.HibernateSearchNormalizer;
 
 import com.google.common.collect.Sets;
 
@@ -31,15 +37,19 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 
 	private static final long serialVersionUID = -1482204779794633259L;
 
-	private static final Portefeuille INSTANCE = new Portefeuille();
+	public static final String NOM = "nom";
+	public static final String NOM_SORT = "nomSort";
 
 	@Id
 	@DocumentId
 	@GeneratedValue
 	private Long id;
 
+	@Field(name = NOM, analyzer = @Analyzer(definition = HibernateSearchAnalyzer.TEXT_STEMMING))
+	@Field(name = NOM_SORT, normalizer = @Normalizer(definition = HibernateSearchNormalizer.TEXT))	
+	@SortableField(forField = NOM_SORT)
 	@Basic(optional = false)
-	private String nom = "Mon Portefeuille";
+	private String nom;
 
 	@OneToMany(mappedBy = "portefeuille", fetch = FetchType.LAZY, orphanRemoval = true)
 	@SortComparator(CompteComparator.class)
@@ -85,10 +95,6 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 
 	public boolean addCompte(Compte compte) {
 		return comptes.add(compte);
-	}
-
-	public static Portefeuille get() {
-		return INSTANCE;
 	}
 
 }

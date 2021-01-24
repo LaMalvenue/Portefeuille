@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 	<wicket:extend>
+	<div wicket:id="popup"/>
+	
 		<div class="content-container">
 			<div class="content-header-section">
 				<div class="content-header-container">
@@ -12,64 +14,50 @@
 					</div>
 				</div>
 			</div>
-			
 			<div class="content-body-section">
 				<div class="content-body-container">
 					<div class="content-body">
 						<div class="row row-md">
-							<div class="col-lg-6">
-								<div class="card card-page">
+							<div class="col-md-6 col-lg-4 col-xl-4">
+								<div class="card card-page h-100">
+									<div class="card-body card-img-top flex-grow-0 bg-primary text-center">
+										<span class="fa fa-fw fa-5x fa-wallet" />
+									</div>
 									<div class="card-header">
 										<h5 class="card-header-title">
-											<wicket:message key="portefeuille.detail.description" />
+											<wicket:message key="homePage.navigation.portefeuilles.title" />
 										</h5>
 									</div>
-									<div class="card-body">
-										<div class="row row-description">
-											<div class="col-12">
-												<div class="row row-description-group description-group">
-													<div class="col-md-4">
-														<div class="description-label">
-															<wicket:message key="business.portefeuille.nom" />
-														</div>
-													</div>
-													<div class="col-md-8">
-														<div class="description-value">
-															<span wicket:id="nom" />
-														</div>
-													</div>
-												</div>
-												<div class="row row-description-group description-group">
-													<div class="col-md-4">
-														<div class="description-label">
-															<wicket:message key="business.portefeuille.fondsTotauxDisponibles" />
-														</div>
-													</div>
-													<div class="col-md-8">
-														<div class="description-value">
-															<span wicket:id="fondsTotauxDisponibles" />
-														</div>
-													</div>
-												</div>
-											</div>
+									<div class="card-body d-flex flex-column">
+										<div>
+											<wicket:message key="homePage.navigation.portefeuilles.add" />
 										</div>
-										<div class="card-action">
-											<div class="row row-action justify-content-end">
-												<button class="btn btn-primary" type="button">
-													<span class="fa fa-fw fa-edit" /> 
-													<wicket:message key="common.action.edit" />
-												</button>
+										<div class="mt-auto">
+											<div class="card-action">
+												<div class="row row-action justify-content-end">
+													<div class="col-auto">
+														<a wicket:id="add" class="btn btn-outline-primary stretched-link">
+															<span class="fa fa-fw fa-plus" />
+															<wicket:message key="common.action.add" />
+														</a>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div wicket:id="comptes" class="col-lg-6" />
+							<div class="col-12">
+								<div wicket:id="resultats" class="card card-page" />
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
 		</div>
+		
+		<wicket:fragment wicket:id="fondsDisponiblesFragment">
+			<div wicket:id="fondsDisponibles" />
+		</wicket:fragment>
 	</wicket:extend>
 </html>

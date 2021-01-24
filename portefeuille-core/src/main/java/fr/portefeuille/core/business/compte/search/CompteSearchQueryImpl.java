@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import fr.portefeuille.core.business.compte.model.Compte;
 import fr.portefeuille.core.business.compte.model.atomic.TypeCompte;
+import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
 
 @Component
 @Scope("prototype")
@@ -32,6 +33,12 @@ public class CompteSearchQueryImpl extends AbstractHibernateSearchSearchQuery<Co
 	@Override
 	public ICompteSearchQuery typeCompte(TypeCompte typeCompte) {
 		must(matchIfGiven(Compte.TYPE, typeCompte));
+		return this;
+	}
+
+	@Override
+	public ICompteSearchQuery portefeuille(Portefeuille portefeuille) {
+		must(matchIfGiven(Compte.PORTEFEUILLE, portefeuille));
 		return this;
 	}
 
