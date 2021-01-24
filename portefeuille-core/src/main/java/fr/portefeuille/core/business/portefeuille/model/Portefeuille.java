@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.bindgen.Bindable;
@@ -29,6 +30,7 @@ import com.google.common.collect.Sets;
 
 import fr.portefeuille.core.business.compte.model.Compte;
 import fr.portefeuille.core.business.compte.model.comparator.CompteComparator;
+import fr.portefeuille.core.business.user.model.User;
 
 @Indexed
 @Entity
@@ -44,6 +46,9 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 	@DocumentId
 	@GeneratedValue
 	private Long id;
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "portefeuille")
+	private User user;
 
 	@Field(name = NOM, analyzer = @Analyzer(definition = HibernateSearchAnalyzer.TEXT_STEMMING))
 	@Field(name = NOM_SORT, normalizer = @Normalizer(definition = HibernateSearchNormalizer.TEXT))	

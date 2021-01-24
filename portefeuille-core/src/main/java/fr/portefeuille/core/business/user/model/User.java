@@ -3,12 +3,16 @@ package fr.portefeuille.core.business.user.model;
 import javax.persistence.Cacheable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.bindgen.Bindable;
 import org.hibernate.search.annotations.Indexed;
+
+import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
 import fr.portefeuille.core.business.user.model.embeddable.UserAnnouncementInformation;
 import fr.portefeuille.core.business.user.model.embeddable.UserPasswordInformation;
 import fr.portefeuille.core.business.user.model.embeddable.UserPasswordRecoveryRequest;
@@ -35,6 +39,9 @@ public class User extends GenericSimpleUser<User, UserGroup> {
 
 	@Embedded
 	private UserAnnouncementInformation announcementInformation = new UserAnnouncementInformation();
+
+	@OneToOne(fetch = FetchType.LAZY)
+	private Portefeuille portefeuille = new Portefeuille();
 
 	public User() {
 		super();
@@ -63,6 +70,14 @@ public class User extends GenericSimpleUser<User, UserGroup> {
 
 	public void setAnnouncementInformation(UserAnnouncementInformation announcementInformation) {
 		this.announcementInformation = announcementInformation;
+	}
+
+	public Portefeuille getPortefeuille() {
+		return portefeuille;
+	}
+
+	public void setPortefeuille(Portefeuille portefeuille) {
+		this.portefeuille = portefeuille;
 	}
 
 	@Transient
