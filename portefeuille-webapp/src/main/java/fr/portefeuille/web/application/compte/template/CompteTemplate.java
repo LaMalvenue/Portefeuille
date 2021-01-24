@@ -3,6 +3,7 @@ package fr.portefeuille.web.application.compte.template;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.iglooproject.spring.property.service.IPropertyService;
 
 import fr.portefeuille.core.business.compte.service.ICompteService;
 import fr.portefeuille.web.application.common.template.MainTemplate;
@@ -14,6 +15,9 @@ public class CompteTemplate extends MainTemplate {
 	
 	@SpringBean
 	protected ICompteService compteService;
+
+	@SpringBean
+	protected IPropertyService propertyService;
 
 	public CompteTemplate(PageParameters parameters) {
 		super(parameters);

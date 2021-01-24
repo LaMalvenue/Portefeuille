@@ -70,7 +70,6 @@ public class Compte extends GenericEntity<Long, Compte> {
 	@SortableField(forField = FONDS_DISPONIBLES)
 	private double fondsDisponibles;
 	
-	// TODO AROUV : Basic + Enumerated ?
 	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
 	@Field(name = TYPE)
@@ -111,7 +110,6 @@ public class Compte extends GenericEntity<Long, Compte> {
 
 	public void setFondsDisponibles(double fondsDisponibles) {
 		this.fondsDisponibles = fondsDisponibles;
-		this.portefeuille.setFondsTotauxDisponibles(this.portefeuille.getFondsTotauxDisponibles() + this.fondsDisponibles);
 	}
 
 	public TypeCompte getType() {

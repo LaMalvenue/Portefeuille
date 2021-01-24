@@ -2,16 +2,13 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <wicket:extend>
-	
 	<div class="content-container">
 		<div class="content-header-section">
 			<div class="content-header-container">
 				<div class="content-header">
-				
 					<h4 class="content-header-title">
 						<wicket:message key="compte.list.title" />
 					</h4>
-					
 					<div wicket:id="headerElementsSection" class="content-header-elements-section">
 						<div class="row row-xs align-items-center">
 							<div wicket:id="actionsContainer" class="col-auto ml-auto">
@@ -30,7 +27,6 @@
 				</div>
 			</div>
 		</div>
-		
 		<div class="content-body-section">
 			<div class="content-body-container">
 				<div class="content-body">
@@ -46,4 +42,8 @@
 		</div>
 	</div>
 </wicket:extend>
+
+	<wicket:fragment wicket:id="fondsDisponiblesFragment">
+		<div wicket:id="fondsDisponibles" />
+	</wicket:fragment>
 </html>

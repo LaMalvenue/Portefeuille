@@ -51,6 +51,8 @@ public class OperationListPage extends OperationTemplate {
 					.withClass("text text-sm align-middle")
 				.addLabelColumn(new ResourceModel("business.operation.statut"), Bindings.operation().statut())
 					.withClass("text text-sm align-middle")
+				.addLabelColumn(new ResourceModel("business.operation.compte"), Bindings.operation().compte())
+					.withClass("text text-sm align-middle")
 				.bootstrapCard()
 					.ajaxPagers()
 					.count("operation.list.count")
