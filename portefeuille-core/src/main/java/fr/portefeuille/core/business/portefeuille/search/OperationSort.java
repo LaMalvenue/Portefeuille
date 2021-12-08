@@ -9,7 +9,9 @@ import org.iglooproject.jpa.more.business.sort.SortUtils;
 
 import com.google.common.collect.ImmutableList;
 
-public enum PortefeuilleSort implements ISort<SortField> {
+import fr.portefeuille.core.business.portefeuille.model.Operation;
+
+public enum OperationSort implements ISort<SortField> {
 
 	ID {
 		@Override
@@ -19,6 +21,22 @@ public enum PortefeuilleSort implements ISort<SortField> {
 					this, sortOrder, SortField.Type.LONG,
 					GenericEntity.ID_SORT
 				)			
+			);
+		}
+		@Override
+		public SortOrder getDefaultOrder() {
+			return SortOrder.ASC;
+		}
+	},
+
+	LABEL {
+		@Override
+		public List<SortField> getSortFields(SortOrder sortOrder) {
+			return ImmutableList.of(
+				SortUtils.luceneSortField(
+					this, sortOrder, SortField.Type.STRING,
+					Operation.LABEL_SORT
+				)	
 			);
 		}
 		@Override

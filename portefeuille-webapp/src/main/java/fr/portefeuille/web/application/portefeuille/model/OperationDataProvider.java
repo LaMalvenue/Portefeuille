@@ -9,38 +9,37 @@ import org.iglooproject.wicket.more.model.GenericEntityModel;
 
 import com.google.common.collect.ImmutableMap;
 
-import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
-import fr.portefeuille.core.business.portefeuille.search.IPortefeuilleSearchQuery;
-import fr.portefeuille.core.business.portefeuille.search.PortefeuilleSort;
+import fr.portefeuille.core.business.portefeuille.model.Operation;
+import fr.portefeuille.core.business.portefeuille.search.IOperationSearchQuery;
+import fr.portefeuille.core.business.portefeuille.search.OperationSort;
 
-public class PortefeuilleDataProvider extends AbstractSearchQueryDataProvider<Portefeuille, PortefeuilleSort> {
+public class OperationDataProvider extends AbstractSearchQueryDataProvider<Operation, OperationSort> {
 
 	private static final long serialVersionUID = -8029251075537510035L;
 
-	private final CompositeSortModel<PortefeuilleSort> sortModel = new CompositeSortModel<>(
+	private final CompositeSortModel<OperationSort> sortModel = new CompositeSortModel<>(
 		CompositingStrategy.LAST_ONLY,
 		ImmutableMap.of(
-				PortefeuilleSort.ID, PortefeuilleSort.ID.getDefaultOrder()
+			OperationSort.LABEL, OperationSort.LABEL.getDefaultOrder()
 		),
 		ImmutableMap.of(
-				PortefeuilleSort.ID, PortefeuilleSort.ID.getDefaultOrder()
+			OperationSort.ID, OperationSort.ID.getDefaultOrder()
 		)
 	);
 
 	@Override
-	public IModel<Portefeuille> model(Portefeuille object) {
+	public IModel<Operation> model(Operation object) {
 		return GenericEntityModel.of(object);
 	}
 
 	@Override
-	protected ISearchQuery<Portefeuille, PortefeuilleSort> getSearchQuery() {
-		return createSearchQuery(IPortefeuilleSearchQuery.class)
+	protected ISearchQuery<Operation, OperationSort> getSearchQuery() {
+		return createSearchQuery(IOperationSearchQuery.class)
 			.sort(sortModel.getObject());
 	}
 
-	public CompositeSortModel<PortefeuilleSort> getSortModel() {
+	public CompositeSortModel<OperationSort> getSortModel() {
 		return sortModel;
 	}
 
 }
-

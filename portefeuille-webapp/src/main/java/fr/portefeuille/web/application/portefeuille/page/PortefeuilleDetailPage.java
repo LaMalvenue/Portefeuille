@@ -94,7 +94,7 @@ public class PortefeuilleDetailPage extends MainTemplate {
 		add(
 			headerElementsSection,
 			new CoreLabel("title", new StringResourceModel("portefeuille.detail.title.param", portefeuilleModel)),
-			new CoreLabel("nom", BindingModel.of(portefeuilleModel, Bindings.portefeuille().nom()))
+			new CoreLabel("nom", BindingModel.of(portefeuilleModel, Bindings.portefeuille()))
 				.showPlaceholder(),
 			new CoreLabel("fondsTotauxDisponibles", BindingModel.of(portefeuilleModel, Bindings.portefeuille().fondsTotauxDisponibles()))
 				.showPlaceholder(),

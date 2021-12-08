@@ -35,8 +35,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.collect.ImmutableList;
 
 import fr.portefeuille.core.business.common.model.PostalCode;
-import fr.portefeuille.core.business.compte.model.atomic.TypeCompte;
 import fr.portefeuille.core.business.history.model.atomic.HistoryEventType;
+import fr.portefeuille.core.business.portefeuille.model.atomic.CompteType;
 import fr.portefeuille.core.business.user.model.BasicUser;
 import fr.portefeuille.core.business.user.model.TechnicalUser;
 import fr.portefeuille.core.business.user.model.User;
@@ -58,8 +58,6 @@ import fr.portefeuille.web.application.common.template.resources.styles.applicat
 import fr.portefeuille.web.application.common.template.resources.styles.console.console.ConsoleScssResourceReference;
 import fr.portefeuille.web.application.common.template.resources.styles.console.consoleaccess.ConsoleAccessScssResourceReference;
 import fr.portefeuille.web.application.common.template.resources.styles.notification.NotificationScssResourceReference;
-import fr.portefeuille.web.application.compte.page.CompteDetailPage;
-import fr.portefeuille.web.application.compte.page.CompteListPage;
 import fr.portefeuille.web.application.console.common.component.ConsoleAccessHeaderAdditionalContentPanel;
 import fr.portefeuille.web.application.console.common.component.ConsoleHeaderAdditionalContentPanel;
 import fr.portefeuille.web.application.console.common.component.ConsoleHeaderEnvironmentPanel;
@@ -67,7 +65,9 @@ import fr.portefeuille.web.application.console.notification.demo.page.ConsoleNot
 import fr.portefeuille.web.application.history.renderer.HistoryValueRenderer;
 import fr.portefeuille.web.application.navigation.page.HomePage;
 import fr.portefeuille.web.application.navigation.page.MaintenancePage;
-import fr.portefeuille.web.application.operation.page.OperationListPage;
+import fr.portefeuille.web.application.portefeuille.page.CompteDetailPage;
+import fr.portefeuille.web.application.portefeuille.page.CompteListPage;
+import fr.portefeuille.web.application.portefeuille.page.OperationListPage;
 import fr.portefeuille.web.application.portefeuille.page.PortefeuilleDetailPage;
 import fr.portefeuille.web.application.profile.page.ProfilePage;
 import fr.portefeuille.web.application.referencedata.page.ReferenceDataPage;
@@ -149,7 +149,7 @@ public class PortefeuilleApplication extends CoreWicketAuthenticatedApplication 
 		
 		converterLocator.set(PostalCode.class, PostalCodeConverter.get());
 		
-		converterLocator.set(TypeCompte.class, EnumRenderer.get());
+		converterLocator.set(CompteType.class, EnumRenderer.get());
 		
 		return new HibernateProxyAwareConverterLocator(converterLocator);
 	}

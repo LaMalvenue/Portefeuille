@@ -1,19 +1,23 @@
 package fr.portefeuille.core.business.user.model;
 
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.bindgen.Bindable;
 import org.hibernate.search.annotations.Indexed;
+import org.iglooproject.jpa.security.business.person.model.GenericSimpleUser;
+import org.iglooproject.spring.util.StringUtils;
+
+import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
 import fr.portefeuille.core.business.user.model.embeddable.UserAnnouncementInformation;
 import fr.portefeuille.core.business.user.model.embeddable.UserPasswordInformation;
 import fr.portefeuille.core.business.user.model.embeddable.UserPasswordRecoveryRequest;
-import org.iglooproject.jpa.security.business.person.model.GenericSimpleUser;
-import org.iglooproject.spring.util.StringUtils;
 
 @Indexed
 @Bindable
@@ -35,6 +39,9 @@ public class User extends GenericSimpleUser<User, UserGroup> {
 
 	@Embedded
 	private UserAnnouncementInformation announcementInformation = new UserAnnouncementInformation();
+
+	@OneToOne(mappedBy = "proprietaire", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Portefeuille portefeuille;
 
 	public User() {
 		super();

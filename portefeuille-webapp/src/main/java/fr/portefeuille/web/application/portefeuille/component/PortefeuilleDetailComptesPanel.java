@@ -19,15 +19,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.wiquery.core.events.MouseEvent;
 
-import fr.portefeuille.core.business.compte.model.Compte;
-import fr.portefeuille.core.business.compte.service.ICompteService;
+import fr.portefeuille.core.business.portefeuille.model.Compte;
 import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
+import fr.portefeuille.core.business.portefeuille.service.ICompteService;
 import fr.portefeuille.core.util.binding.Bindings;
 import fr.portefeuille.web.application.common.renderer.ActionRenderers;
 import fr.portefeuille.web.application.common.util.CssClassConstants;
-import fr.portefeuille.web.application.compte.form.CompteAddPopup;
-import fr.portefeuille.web.application.compte.model.CompteDataProvider;
-import fr.portefeuille.web.application.compte.page.CompteDetailPage;
+import fr.portefeuille.web.application.portefeuille.form.CompteAddPopup;
+import fr.portefeuille.web.application.portefeuille.model.CompteDataProvider;
+import fr.portefeuille.web.application.portefeuille.page.CompteDetailPage;
 import fr.portefeuille.web.application.property.PortefeuilleWebappPropertyIds;
 
 public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
@@ -52,14 +52,13 @@ public class PortefeuilleDetailComptesPanel extends GenericPanel<Portefeuille> {
 		add(addComptePopup= new CompteAddPopup("addComptePopup", portefeuilleModel));
 		
 		compteDataProvider = new CompteDataProvider();
-		compteDataProvider.setPortefeuilleModel(portefeuilleModel);
 		
 		add(
 			DataTableBuilder.start(compteDataProvider, compteDataProvider.getSortModel())
 				.addLabelColumn(new ResourceModel("business.compte.label"), Bindings.compte().label())
 					.withLink(CompteDetailPage.MAPPER)
 					.withClass("text text-md")
-				.addLabelColumn(new ResourceModel("business.compte.fondsDisponibles"), Bindings.compte().fondsDisponibles())
+				.addLabelColumn(new ResourceModel("business.compte.fondsDisponibles"), Bindings.compte().solde())
 				.addActionColumn()
 					.addConfirmAction(ActionRenderers.delete())
 						.title(new ResourceModel("compte.action.delete.confirmation.title")) 

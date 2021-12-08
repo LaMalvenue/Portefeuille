@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import org.iglooproject.wicket.more.rendering.Renderer;
 
-import fr.portefeuille.core.business.compte.model.Compte;
+import fr.portefeuille.core.business.portefeuille.model.Compte;
 
 public abstract class CompteRenderer extends Renderer<Compte>{
 

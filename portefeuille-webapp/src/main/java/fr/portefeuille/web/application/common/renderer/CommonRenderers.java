@@ -1,5 +1,6 @@
 package fr.portefeuille.web.application.common.renderer;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 import org.iglooproject.functional.Joiners;
@@ -9,12 +10,11 @@ public final class CommonRenderers {
 
 	private static final String EUROS_KEY = "common.unit.euros";
 
-	// TODO AROUV : Comment ajouter un espace tous les 3 chiffres ?
-	private static final Renderer<Double> SOMME_EUROS = withUnit(
-			Renderer
-				.fromNumberFormat(new DecimalFormat("#.##")),
-			EUROS_KEY
-		);
+	private static final Renderer<BigDecimal> SOMME_EUROS = withUnit(
+		Renderer
+			.fromNumberFormat(new DecimalFormat("#.##")),
+		EUROS_KEY
+	);
 
 	private CommonRenderers() {
 	}
@@ -25,7 +25,7 @@ public final class CommonRenderers {
 			.nullsAsNull();
 	}
 
-	public static Renderer<Double> sommeEuros() {
+	public static Renderer<BigDecimal> sommeEuros() {
 		return SOMME_EUROS;
 	}
 }

@@ -43,8 +43,8 @@ import fr.portefeuille.web.application.PortefeuilleSession;
 import fr.portefeuille.web.application.common.component.AnnouncementsPanel;
 import fr.portefeuille.web.application.common.template.theme.PortefeuilleApplicationTheme;
 import fr.portefeuille.web.application.common.template.theme.common.BootstrapBreakpointPanel;
-import fr.portefeuille.web.application.compte.page.CompteListPage;
-import fr.portefeuille.web.application.operation.page.OperationListPage;
+import fr.portefeuille.web.application.portefeuille.page.CompteListPage;
+import fr.portefeuille.web.application.portefeuille.page.OperationListPage;
 import fr.portefeuille.web.application.security.password.page.SecurityPasswordExpirationPage;
 
 public abstract class MainTemplate extends AbstractWebPageTemplate {

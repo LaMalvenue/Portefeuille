@@ -1,10 +1,10 @@
 package fr.portefeuille.core.util.binding;
 
 import fr.portefeuille.core.business.announcement.model.AnnouncementBinding;
-import fr.portefeuille.core.business.compte.model.CompteBinding;
 import fr.portefeuille.core.business.history.model.HistoryDifferenceBinding;
 import fr.portefeuille.core.business.history.model.HistoryLogBinding;
-import fr.portefeuille.core.business.operation.model.OperationBinding;
+import fr.portefeuille.core.business.portefeuille.model.CompteBinding;
+import fr.portefeuille.core.business.portefeuille.model.OperationBinding;
 import fr.portefeuille.core.business.portefeuille.model.PortefeuilleBinding;
 import fr.portefeuille.core.business.referencedata.model.CityBinding;
 import fr.portefeuille.core.business.referencedata.model.IReferenceDataBindingInterfaceBinding;
