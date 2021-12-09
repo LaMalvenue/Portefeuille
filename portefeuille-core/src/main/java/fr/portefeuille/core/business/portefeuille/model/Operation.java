@@ -8,6 +8,7 @@ import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -17,17 +18,19 @@ import javax.persistence.TemporalType;
 import org.bindgen.Bindable;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Normalizer;
 import org.hibernate.search.annotations.SortableField;
 import org.iglooproject.commons.util.CloneUtils;
 import org.iglooproject.jpa.business.generic.model.GenericEntity;
+import org.iglooproject.jpa.search.bridge.GenericEntityIdFieldBridge;
 import org.iglooproject.jpa.search.util.HibernateSearchAnalyzer;
 import org.iglooproject.jpa.search.util.HibernateSearchNormalizer;
 
-import fr.portefeuille.core.business.portefeuille.model.atomic.OperationCategorie;
 import fr.portefeuille.core.business.portefeuille.model.atomic.OperationStatut;
 import fr.portefeuille.core.business.portefeuille.model.atomic.OperationType;
+import fr.portefeuille.core.business.referencedata.model.OperationCategorie;
 
 @Indexed
 @Entity
@@ -57,10 +60,10 @@ public class Operation extends GenericEntity <Long, Operation> {
 	@GeneratedValue
 	private Long id;
 
+	@Basic(optional = false)
 	@Field(name = LABEL, analyzer = @Analyzer(definition = HibernateSearchAnalyzer.TEXT_STEMMING))
 	@Field(name = LABEL_SORT, normalizer = @Normalizer(definition = HibernateSearchNormalizer.TEXT))
 	@SortableField(forField = LABEL_SORT)
-	@Basic(optional = false)
 	private String label;
 
 	@Basic(optional = false)
@@ -72,19 +75,18 @@ public class Operation extends GenericEntity <Long, Operation> {
 	@SortableField(forField = DATE)
 	private Date date;
 
-	@Field(name = CATEGORIE)
-	@Basic
-	@Enumerated(EnumType.STRING)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@Field(name = CATEGORIE, bridge = @FieldBridge(impl = GenericEntityIdFieldBridge.class))
 	private OperationCategorie categorie;
 
-	@Field(name = TYPE_OPERATION)
 	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
+	@Field(name = TYPE_OPERATION)
 	private OperationType type;
 
-	@Field(name = STATUT)
 	@Basic(optional = false)
 	@Enumerated(EnumType.STRING)
+	@Field(name = STATUT)
 	private OperationStatut statut;
 
 	@Basic(optional = false)

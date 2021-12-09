@@ -44,6 +44,11 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 
 	private Form<Compte> form;
 
+	public CompteAddPopup(String id) {
+		super(id, GenericEntityModel.of(new Compte()));
+		this.portefeuilleModel = GenericEntityModel.of(new Portefeuille());
+	}
+
 	public CompteAddPopup(String id, IModel<Portefeuille> portefeuilleModel) {
 		super(id, GenericEntityModel.of(new Compte()));
 		this.portefeuilleModel = portefeuilleModel;
@@ -58,25 +63,18 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 	protected Component createBody(String wicketId) {
 		DelegatedMarkupPanel body = new DelegatedMarkupPanel(wicketId, getClass());
 		
-		IModel<Compte> compteModel = getModel();
-		
-		// Le label ne s'enregistre pas
-		IModel<String> labelModel = BindingModel.of(compteModel, Bindings.compte().label());
-		TextField<String> label = new TextField<>("label", labelModel, String.class);
-
-		IModel<BigDecimal> soldeModel = BindingModel.of(compteModel, Bindings.compte().solde());
-		TextField<BigDecimal> solde = new TextField<>("fondsDisponibles", soldeModel, BigDecimal.class);
+		IModel<String> labelModel = BindingModel.of(getModel(), Bindings.compte().label());
+		IModel<BigDecimal> soldeModel = BindingModel.of(getModel(), Bindings.compte().solde());
 		
 		form = new Form<>("form");
 		
 		form.add(
-			new EnumDropDownSingleChoice<>("typeCompte", BindingModel.of(compteModel, Bindings.compte().type()), CompteType.class)
+			new EnumDropDownSingleChoice<>("typeCompte", BindingModel.of(getModel(), Bindings.compte().type()), CompteType.class)
 				.setLabel(new ResourceModel("business.compte.typeCompte"))
-				// TODO AROUV : Sélectionner un élément par défaut dans le dropdown
 				.setRequired(true),
-			label
+			new TextField<>("label", labelModel, String.class)
 				.setLabel(new ResourceModel("business.compte.label")),
-			solde
+			new TextField<>("fondsDisponibles", soldeModel, BigDecimal.class)
 				.setLabel(new ResourceModel("business.compte.fondsDisponibles"))
 		);
 		
@@ -106,7 +104,7 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 					} catch (RestartResponseException e) { 
 						throw e;
 					} catch (Exception e) {
-						LOGGER.error("An error occured while saving an announcement.", e);
+						LOGGER.error("Erreur lors de l'enregistrement du portefeuille.", e);
 						Session.get().error(getString("common.error.unexpected"));
 					}
 					FeedbackUtils.refreshFeedback(target, getPage());

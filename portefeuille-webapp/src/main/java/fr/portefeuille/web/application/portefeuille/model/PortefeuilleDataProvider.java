@@ -12,20 +12,31 @@ import com.google.common.collect.ImmutableMap;
 import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
 import fr.portefeuille.core.business.portefeuille.search.IPortefeuilleSearchQuery;
 import fr.portefeuille.core.business.portefeuille.search.PortefeuilleSort;
+import fr.portefeuille.core.business.user.model.User;
 
 public class PortefeuilleDataProvider extends AbstractSearchQueryDataProvider<Portefeuille, PortefeuilleSort> {
 
 	private static final long serialVersionUID = -8029251075537510035L;
 
+	private final IModel<User> proprietaireModel = new GenericEntityModel<>();
+
 	private final CompositeSortModel<PortefeuilleSort> sortModel = new CompositeSortModel<>(
 		CompositingStrategy.LAST_ONLY,
 		ImmutableMap.of(
-				PortefeuilleSort.ID, PortefeuilleSort.ID.getDefaultOrder()
+			PortefeuilleSort.PROPRIETAIRE, PortefeuilleSort.PROPRIETAIRE.getDefaultOrder()
 		),
 		ImmutableMap.of(
-				PortefeuilleSort.ID, PortefeuilleSort.ID.getDefaultOrder()
+			PortefeuilleSort.ID, PortefeuilleSort.ID.getDefaultOrder()
 		)
 	);
+
+	public IModel<User> getProprietaireModel() {
+		return proprietaireModel;
+	}
+
+	public CompositeSortModel<PortefeuilleSort> getSortModel() {
+		return sortModel;
+	}
 
 	@Override
 	public IModel<Portefeuille> model(Portefeuille object) {
@@ -35,11 +46,8 @@ public class PortefeuilleDataProvider extends AbstractSearchQueryDataProvider<Po
 	@Override
 	protected ISearchQuery<Portefeuille, PortefeuilleSort> getSearchQuery() {
 		return createSearchQuery(IPortefeuilleSearchQuery.class)
-			.sort(sortModel.getObject());
-	}
-
-	public CompositeSortModel<PortefeuilleSort> getSortModel() {
-		return sortModel;
+			.proprietaire(getProprietaireModel().getObject())
+			.sort(getSortModel().getObject());
 	}
 
 }

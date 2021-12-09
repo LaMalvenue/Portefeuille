@@ -16,11 +16,14 @@ import org.iglooproject.wicket.markup.html.basic.CoreLabel;
 import org.iglooproject.wicket.more.condition.Condition;
 import org.iglooproject.wicket.more.link.descriptor.IPageLinkDescriptor;
 import org.iglooproject.wicket.more.link.descriptor.builder.LinkDescriptorBuilder;
+import org.iglooproject.wicket.more.markup.html.link.BlankLink;
+import org.iglooproject.wicket.more.markup.html.template.js.bootstrap.modal.behavior.AjaxModalOpenBehavior;
 import org.iglooproject.wicket.more.markup.html.template.model.BreadCrumbElement;
 import org.iglooproject.wicket.more.markup.repeater.table.DecoratedCoreDataTablePanel;
 import org.iglooproject.wicket.more.markup.repeater.table.builder.DataTableBuilder;
 import org.iglooproject.wicket.more.markup.repeater.table.column.AbstractCoreColumn;
 import org.iglooproject.wicket.more.model.BindingModel;
+import org.wicketstuff.wiquery.core.events.MouseEvent;
 
 import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
 import fr.portefeuille.core.business.portefeuille.search.PortefeuilleSort;
@@ -28,6 +31,7 @@ import fr.portefeuille.core.business.portefeuille.service.IPortefeuilleService;
 import fr.portefeuille.core.util.binding.Bindings;
 import fr.portefeuille.web.application.common.renderer.CommonRenderers;
 import fr.portefeuille.web.application.common.template.MainTemplate;
+import fr.portefeuille.web.application.portefeuille.form.CompteAddPopup;
 import fr.portefeuille.web.application.portefeuille.model.PortefeuilleDataProvider;
 import fr.portefeuille.web.application.portefeuille.page.PortefeuilleDetailPage;
 
@@ -55,6 +59,13 @@ public class HomePage extends MainTemplate {
 		));
 		
 		add(new CoreLabel("pageTitle", new ResourceModel("home.pageTitle")));
+		
+		CompteAddPopup popup = new CompteAddPopup("addPopup");
+		add(
+			popup,
+			new BlankLink("add")
+				.add(new AjaxModalOpenBehavior(popup, MouseEvent.CLICK))
+		);
 		
 		PortefeuilleDataProvider portefeuilleDataProvider = new PortefeuilleDataProvider();
 		
@@ -103,7 +114,7 @@ public class HomePage extends MainTemplate {
 			IModel<BigDecimal> fondsDisponiblesModel = BindingModel.of(portefeuilleModel, Bindings.portefeuille().fondsTotauxDisponibles());
 
 			add(
-				new CoreLabel("fondsDisponibles", CommonRenderers.sommeEuros().asModel(fondsDisponiblesModel))
+				new CoreLabel("fondsDisponibles", CommonRenderers.montant().asModel(fondsDisponiblesModel))
 			);
 
 		}

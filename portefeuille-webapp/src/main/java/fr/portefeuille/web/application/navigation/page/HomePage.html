@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 	<wicket:extend>
+		<div wicket:id="addPopup" />
+	
 		<div class="content-container">
 			<div class="content-header-section">
 				<div class="content-header-container">
@@ -34,7 +36,7 @@
 											<div class="card-action">
 												<div class="row row-action justify-content-end">
 													<div class="col-auto">
-														<a class="btn btn-outline-primary stretched-link">
+														<a wicket:id="add" class="btn btn-outline-primary stretched-link">
 															<span class="fa fa-fw fa-plus" />
 															<wicket:message key="common.action.add" />
 														</a>

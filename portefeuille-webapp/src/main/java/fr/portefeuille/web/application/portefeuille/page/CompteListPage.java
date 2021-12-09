@@ -85,7 +85,7 @@ public class CompteListPage extends CompteTemplate {
 			IModel<BigDecimal> soldeModel = BindingModel.of(compteModel, Bindings.compte().solde());
 
 			add(
-				new CoreLabel("fondsDisponibles", CommonRenderers.sommeEuros().asModel(soldeModel))
+				new CoreLabel("fondsDisponibles", CommonRenderers.montant().asModel(soldeModel))
 			);
 
 		}

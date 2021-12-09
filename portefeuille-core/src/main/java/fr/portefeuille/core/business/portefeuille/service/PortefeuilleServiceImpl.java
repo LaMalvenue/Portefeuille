@@ -38,10 +38,17 @@ public class PortefeuilleServiceImpl extends GenericEntityServiceImpl<Long, Port
 
 	@Override
 	public void addCompte(Portefeuille portefeuille, Compte compte) throws ServiceException, SecurityServiceException {
+		Objects.requireNonNull(portefeuille);
 		Objects.requireNonNull(compte);
 		
-		compteService.create(compte);
+		if (portefeuille.isNew()) {
+			portefeuille.setProprietaire(userService.getAuthenticatedUser());
+			create(portefeuille);
+		}
+		
 		portefeuille.addCompte(compte);
+		
+		update(portefeuille);
 	}
 
 }

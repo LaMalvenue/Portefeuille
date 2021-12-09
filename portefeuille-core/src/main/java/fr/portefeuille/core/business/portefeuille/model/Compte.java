@@ -6,6 +6,7 @@ import java.util.SortedSet;
 
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -24,6 +25,7 @@ import org.hibernate.search.annotations.SortableField;
 import org.iglooproject.commons.util.collections.CollectionUtils;
 import org.iglooproject.jpa.business.generic.model.GenericEntity;
 
+import fr.portefeuille.core.business.common.model.Montant;
 import fr.portefeuille.core.business.portefeuille.model.atomic.CompteType;
 import fr.portefeuille.core.business.portefeuille.model.comparator.OperationComparator;
 
@@ -50,6 +52,7 @@ public class Compte extends GenericEntity<Long, Compte> {
 	private String label;
 	
 	@Basic(optional = false)
+	@Column(precision = Montant.PRECISION, scale = Montant.SCALE)
 	@Field(name = SOLDE)
 	@SortableField(forField = SOLDE)
 	private BigDecimal solde;
