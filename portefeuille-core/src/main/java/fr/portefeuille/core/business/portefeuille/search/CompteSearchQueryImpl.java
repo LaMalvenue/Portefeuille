@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import fr.portefeuille.core.business.portefeuille.model.Compte;
-import fr.portefeuille.core.business.portefeuille.model.atomic.CompteType;
+import fr.portefeuille.core.business.referencedata.model.CompteType;
 
 @Component
 @Scope("prototype")

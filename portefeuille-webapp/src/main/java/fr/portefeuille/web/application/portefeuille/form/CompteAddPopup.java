@@ -14,7 +14,6 @@ import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.iglooproject.wicket.markup.html.basic.CoreLabel;
 import org.iglooproject.wicket.more.markup.html.feedback.FeedbackUtils;
-import org.iglooproject.wicket.more.markup.html.form.EnumDropDownSingleChoice;
 import org.iglooproject.wicket.more.markup.html.link.BlankLink;
 import org.iglooproject.wicket.more.markup.html.template.js.bootstrap.modal.component.AbstractAjaxModalPopupPanel;
 import org.iglooproject.wicket.more.markup.html.template.js.bootstrap.modal.component.DelegatedMarkupPanel;
@@ -26,9 +25,11 @@ import org.slf4j.LoggerFactory;
 
 import fr.portefeuille.core.business.portefeuille.model.Compte;
 import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
-import fr.portefeuille.core.business.portefeuille.model.atomic.CompteType;
-import fr.portefeuille.core.business.portefeuille.service.IPortefeuilleService;
+import fr.portefeuille.core.business.portefeuille.service.ICompteService;
+import fr.portefeuille.core.business.referencedata.model.CompteType;
 import fr.portefeuille.core.util.binding.Bindings;
+import fr.portefeuille.web.application.PortefeuilleSession;
+import fr.portefeuille.web.application.common.form.ReferenceDataDropDownSingleChoice;
 import fr.portefeuille.web.application.portefeuille.component.PortefeuilleDetailComptesPanel;
 
 public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
@@ -38,20 +39,14 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CompteAddPopup.class);
 
 	@SpringBean
-	private IPortefeuilleService portefeuilleService;
+	private ICompteService compteService;
 	
-	private IModel<Portefeuille> portefeuilleModel;
+	private IModel<Portefeuille> portefeuilleModel = GenericEntityModel.of(PortefeuilleSession.get().getUser().getPortefeuille());
 
 	private Form<Compte> form;
 
 	public CompteAddPopup(String id) {
 		super(id, GenericEntityModel.of(new Compte()));
-		this.portefeuilleModel = GenericEntityModel.of(new Portefeuille());
-	}
-
-	public CompteAddPopup(String id, IModel<Portefeuille> portefeuilleModel) {
-		super(id, GenericEntityModel.of(new Compte()));
-		this.portefeuilleModel = portefeuilleModel;
 	}
 
 	@Override
@@ -63,18 +58,15 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 	protected Component createBody(String wicketId) {
 		DelegatedMarkupPanel body = new DelegatedMarkupPanel(wicketId, getClass());
 		
-		IModel<String> labelModel = BindingModel.of(getModel(), Bindings.compte().label());
 		IModel<BigDecimal> soldeModel = BindingModel.of(getModel(), Bindings.compte().solde());
 		
 		form = new Form<>("form");
 		
 		form.add(
-			new EnumDropDownSingleChoice<>("typeCompte", BindingModel.of(getModel(), Bindings.compte().type()), CompteType.class)
+			new ReferenceDataDropDownSingleChoice<CompteType>("typeCompte", BindingModel.of(getModel(), Bindings.compte().type()), CompteType.class)
 				.setLabel(new ResourceModel("business.compte.typeCompte"))
 				.setRequired(true),
-			new TextField<>("label", labelModel, String.class)
-				.setLabel(new ResourceModel("business.compte.label")),
-			new TextField<>("fondsDisponibles", soldeModel, BigDecimal.class)
+			new TextField<>("solde", soldeModel, BigDecimal.class)
 				.setLabel(new ResourceModel("business.compte.fondsDisponibles"))
 		);
 		
@@ -94,8 +86,9 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 				protected void onSubmit(AjaxRequestTarget target) {
 					try {
 						Compte compte = CompteAddPopup.this.getModelObject();
+						compte.setPortefeuille(portefeuilleModel.getObject());
 						
-						portefeuilleService.addCompte(portefeuilleModel.getObject(), compte);
+						compteService.create(compte);
 						
 						Session.get().success(getString("common.success"));
 						
@@ -104,7 +97,7 @@ public class CompteAddPopup extends AbstractAjaxModalPopupPanel<Compte> {
 					} catch (RestartResponseException e) { 
 						throw e;
 					} catch (Exception e) {
-						LOGGER.error("Erreur lors de l'enregistrement du portefeuille.", e);
+						LOGGER.error("Erreur lors de l'enregistrement du compte.", e);
 						Session.get().error(getString("common.error.unexpected"));
 					}
 					FeedbackUtils.refreshFeedback(target, getPage());

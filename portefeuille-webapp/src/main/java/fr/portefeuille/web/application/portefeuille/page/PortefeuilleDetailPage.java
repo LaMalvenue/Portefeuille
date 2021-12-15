@@ -45,7 +45,7 @@ public class PortefeuilleDetailPage extends MainTemplate {
 		super(parameters);
 		
 		IModel<Portefeuille> portefeuilleModel = new GenericEntityModel<>();
-		IModel<BigDecimal> fondsTotauxDisponiblesModel = BindingModel.of(portefeuilleModel, Bindings.portefeuille().fondsTotauxDisponibles());
+		IModel<BigDecimal> fondsTotauxDisponiblesModel = BindingModel.of(portefeuilleModel, Bindings.portefeuille().solde());
 		
 		MAPPER
 			.map(portefeuilleModel)

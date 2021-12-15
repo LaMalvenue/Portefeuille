@@ -3,7 +3,7 @@ package fr.portefeuille.core.business.portefeuille.search;
 import org.iglooproject.jpa.more.business.search.query.ISearchQuery;
 
 import fr.portefeuille.core.business.portefeuille.model.Compte;
-import fr.portefeuille.core.business.portefeuille.model.atomic.CompteType;
+import fr.portefeuille.core.business.referencedata.model.CompteType;
 
 public interface ICompteSearchQuery extends ISearchQuery<Compte, CompteSort> {
 

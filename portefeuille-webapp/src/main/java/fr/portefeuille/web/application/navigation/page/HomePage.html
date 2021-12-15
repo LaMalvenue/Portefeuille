@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 	<wicket:extend>
-		<div wicket:id="addPopup" />
-	
 		<div class="content-container">
 			<div class="content-header-section">
 				<div class="content-header-container">
@@ -18,46 +16,55 @@
 				<div class="content-body-container">
 					<div class="content-body">
 						<div class="row row-md">
-							<div class="col-md-6 col-lg-4 col-xl-4">
-								<div class="card card-page h-100">
-									<div class="card-body card-img-top flex-grow-0 bg-primary text-center">
-										<span class="fa fa-fw fa-5x fa-wallet" />
-									</div>
-									<div class="card-header">
-										<h5 class="card-header-title">
-											<wicket:message key="homePage.navigation.portefeuilles.title" />
-										</h5>
-									</div>
-									<div class="card-body d-flex flex-column">
-										<div>
-											<wicket:message key="homePage.navigation.portefeuilles.add" />
-										</div>
-										<div class="mt-auto">
-											<div class="card-action">
-												<div class="row row-action justify-content-end">
-													<div class="col-auto">
-														<a wicket:id="add" class="btn btn-outline-primary stretched-link">
-															<span class="fa fa-fw fa-plus" />
-															<wicket:message key="common.action.add" />
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-12">
-								<div wicket:id="resultats" class="card card-page" />
-							</div>
+							<div class="col-lg-8 order-2 order-lg-1" wicket:id="addOperation" />
+							<div class="col-lg-4 order-1 order-lg-2" wicket:id="solde" />
+							<div class="col-12 order-3" wicket:id="dernieresOperations" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		
-		<wicket:fragment wicket:id="fondsDisponiblesFragment">
-			<div wicket:id="fondsDisponibles" />
+		<wicket:fragment wicket:id="soldeFragment">
+			<div class="card card-page">
+				<div wicket:id="header" class="card-header">
+					<h5 class="card-header-title">
+						<span class="fa-fw fa-lg" wicket:id="trelloLogo" />
+						<span wicket:id="title" />
+					</h5>
+				</div>
+				<div class="card-body">
+					<div class="row row-xs">
+						<div class="col-12">
+							<div class="row row-description">
+								<div class="col-12">
+									<div class="row row-description-group description-group">
+										<div class="col-md-5">
+											<div class="description-label">
+												<wicket:message key="business.portefeuille.solde" />
+											</div>
+										</div>
+										<div class="col-md-7">
+											<div class="description-value">
+												<span wicket:id="solde" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div wicket:enclosure-component="details" class="card-action">
+						<div class="row row-action justify-content-end">
+							<div class="col-auto">
+								<a wicket:id="details" class="btn btn-primary">
+									<span class="fa fa-fw fa-chevron-right" />
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</wicket:fragment>
 	</wicket:extend>
 </html>

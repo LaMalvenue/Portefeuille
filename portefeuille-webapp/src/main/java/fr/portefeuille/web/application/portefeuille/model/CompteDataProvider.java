@@ -12,16 +12,16 @@ import org.iglooproject.wicket.more.util.model.Detachables;
 import com.google.common.collect.ImmutableMap;
 
 import fr.portefeuille.core.business.portefeuille.model.Compte;
-import fr.portefeuille.core.business.portefeuille.model.atomic.CompteType;
 import fr.portefeuille.core.business.portefeuille.search.CompteSort;
 import fr.portefeuille.core.business.portefeuille.search.ICompteSearchQuery;
+import fr.portefeuille.core.business.referencedata.model.CompteType;
 
 public class CompteDataProvider extends AbstractSearchQueryDataProvider<Compte, CompteSort> {
 
 	private static final long serialVersionUID = 3864000715169877412L;
 
 	private final IModel<String> textModel = Model.of();
-	private final IModel<CompteType> typeCompteModel = Model.of();
+	private final IModel<CompteType> typeCompteModel = new GenericEntityModel<>();
 
 	private final CompositeSortModel<CompteSort> sortModel = new CompositeSortModel<>(
 		CompositingStrategy.LAST_ONLY,

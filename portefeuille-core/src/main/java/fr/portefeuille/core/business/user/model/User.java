@@ -41,7 +41,7 @@ public class User extends GenericSimpleUser<User, UserGroup> {
 	private UserAnnouncementInformation announcementInformation = new UserAnnouncementInformation();
 
 	@OneToOne(mappedBy = "proprietaire", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Portefeuille portefeuille;
+	private Portefeuille portefeuille = new Portefeuille();
 
 	public User() {
 		super();
@@ -70,6 +70,14 @@ public class User extends GenericSimpleUser<User, UserGroup> {
 
 	public void setAnnouncementInformation(UserAnnouncementInformation announcementInformation) {
 		this.announcementInformation = announcementInformation;
+	}
+
+	public Portefeuille getPortefeuille() {
+		return portefeuille;
+	}
+
+	public void setPortefeuille(Portefeuille portefeuille) {
+		this.portefeuille = portefeuille;
 	}
 
 	@Transient

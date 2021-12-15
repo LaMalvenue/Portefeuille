@@ -11,19 +11,26 @@ import org.springframework.stereotype.Service;
 import fr.portefeuille.core.business.portefeuille.dao.IPortefeuilleDao;
 import fr.portefeuille.core.business.portefeuille.model.Compte;
 import fr.portefeuille.core.business.portefeuille.model.Portefeuille;
+import fr.portefeuille.core.business.user.model.User;
 import fr.portefeuille.core.business.user.service.IUserService;
 
 @Service
 public class PortefeuilleServiceImpl extends GenericEntityServiceImpl<Long, Portefeuille> implements IPortefeuilleService {
 
+	private IPortefeuilleDao dao;
+
 	@Autowired
 	private IUserService userService;
 
-	@Autowired
-	private ICompteService compteService;
-
 	public PortefeuilleServiceImpl(IPortefeuilleDao dao) {
 		super(dao);
+		this.dao = dao;
+	}
+
+	@Override
+	public Portefeuille getByProprietaire(User utilisateur) {
+		Objects.requireNonNull(utilisateur);
+		return dao.getByProprietaire(utilisateur);
 	}
 
 	@Override

@@ -2,7 +2,9 @@ package fr.portefeuille.core.business.portefeuille.model;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.List;
 import java.util.SortedSet;
+import java.util.stream.Collectors;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -52,6 +54,14 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 		this.id = id;
 	}
 
+	public User getProprietaire() {
+		return proprietaire;
+	}
+
+	public void setProprietaire(User proprietaire) {
+		this.proprietaire = proprietaire;
+	}
+
 	public SortedSet<Compte> getComptes() {
 		return Collections.unmodifiableSortedSet(comptes);
 	}
@@ -60,8 +70,12 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 		CollectionUtils.replaceAll(this.comptes, comptes);
 	}
 
+	public boolean addCompte(Compte compte) {
+		return comptes.add(compte);
+	}
+
 	@Transient
-	public BigDecimal getFondsTotauxDisponibles() {
+	public BigDecimal getSolde() {
 		BigDecimal soldeTotal = BigDecimal.ZERO;
 		if (!this.getComptes().isEmpty()) {
 			for (Compte compte : this.getComptes()) {
@@ -71,16 +85,11 @@ public class Portefeuille extends GenericEntity<Long, Portefeuille> {
 		return soldeTotal;
 	}
 
-	public boolean addCompte(Compte compte) {
-		return comptes.add(compte);
-	}
-
-	public User getProprietaire() {
-		return proprietaire;
-	}
-
-	public void setProprietaire(User proprietaire) {
-		this.proprietaire = proprietaire;
+	@Transient 
+	public List<Operation> getOperations() {
+		return this.getComptes().stream()
+			.flatMap(c-> c.getOperations().stream())
+			.collect(Collectors.toList());
 	}
 
 }

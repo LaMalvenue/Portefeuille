@@ -46,7 +46,7 @@ public class CompteDetailPage extends CompteTemplate {
 		.map(compteModel)
 		.extractSafely(
 			parameters,
-			CompteListPage.linkDescriptor(),
+			CompteListePage.linkDescriptor(),
 			getString("common.error.unexpected")
 		);
 		
@@ -69,7 +69,7 @@ public class CompteDetailPage extends CompteTemplate {
 								try {
 									compteService.delete(compteModel.getObject());
 									Session.get().success(getString("compte.action.delete.success"));
-									throw CompteListPage.linkDescriptor().newRestartResponseException();
+									throw CompteListePage.linkDescriptor().newRestartResponseException();
 								}catch (RestartResponseException e) {
 									throw e;
 								} catch (Exception e) {
@@ -84,11 +84,9 @@ public class CompteDetailPage extends CompteTemplate {
 			);
 	
 	add(
-			CompteListPage.linkDescriptor().link("backToList"),
+			CompteListePage.linkDescriptor().link("backToList"),
 		headerElementsSection,
 		new CoreLabel("title", new StringResourceModel("compte.detail.title.param", compteModel)),
-		new CoreLabel("label", BindingModel.of(compteModel, Bindings.compte().label()))
-			.showPlaceholder(),
 		new CoreLabel("fondsDisponibles", BindingModel.of(compteModel, Bindings.compte().solde()))
 			.showPlaceholder()
 	);

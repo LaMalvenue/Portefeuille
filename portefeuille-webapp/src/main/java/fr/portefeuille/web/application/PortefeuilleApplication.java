@@ -36,7 +36,6 @@ import com.google.common.collect.ImmutableList;
 
 import fr.portefeuille.core.business.common.model.PostalCode;
 import fr.portefeuille.core.business.history.model.atomic.HistoryEventType;
-import fr.portefeuille.core.business.portefeuille.model.atomic.CompteType;
 import fr.portefeuille.core.business.user.model.BasicUser;
 import fr.portefeuille.core.business.user.model.TechnicalUser;
 import fr.portefeuille.core.business.user.model.User;
@@ -66,8 +65,8 @@ import fr.portefeuille.web.application.history.renderer.HistoryValueRenderer;
 import fr.portefeuille.web.application.navigation.page.HomePage;
 import fr.portefeuille.web.application.navigation.page.MaintenancePage;
 import fr.portefeuille.web.application.portefeuille.page.CompteDetailPage;
-import fr.portefeuille.web.application.portefeuille.page.CompteListPage;
-import fr.portefeuille.web.application.portefeuille.page.OperationListPage;
+import fr.portefeuille.web.application.portefeuille.page.CompteListePage;
+import fr.portefeuille.web.application.portefeuille.page.OperationListePage;
 import fr.portefeuille.web.application.portefeuille.page.PortefeuilleDetailPage;
 import fr.portefeuille.web.application.profile.page.ProfilePage;
 import fr.portefeuille.web.application.referencedata.page.ReferenceDataPage;
@@ -149,8 +148,6 @@ public class PortefeuilleApplication extends CoreWicketAuthenticatedApplication 
 		
 		converterLocator.set(PostalCode.class, PostalCodeConverter.get());
 		
-		converterLocator.set(CompteType.class, EnumRenderer.get());
-		
 		return new HibernateProxyAwareConverterLocator(converterLocator);
 	}
 
@@ -180,11 +177,11 @@ public class PortefeuilleApplication extends CoreWicketAuthenticatedApplication 
 		mountParameterizedPage("/portefeuille/detail/", PortefeuilleDetailPage.class);
 		
 		// Comptes
-		mountPage("/comptes/", CompteListPage.class);
+		mountPage("/comptes/", CompteListePage.class);
 		mountParameterizedPage("/comptes/detail/", CompteDetailPage.class);
 		
 		// Operations
-		mountPage("/operations/", OperationListPage.class);
+		mountPage("/operations/", OperationListePage.class);
 		
 		// Administration
 		mountPage("/administration/basic-user/", AdministrationBasicUserListPage.class);

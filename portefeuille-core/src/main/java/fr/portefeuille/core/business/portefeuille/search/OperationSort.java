@@ -43,6 +43,38 @@ public enum OperationSort implements ISort<SortField> {
 		public SortOrder getDefaultOrder() {
 			return SortOrder.ASC;
 		}
+	},
+
+	DATE {
+		@Override
+		public List<SortField> getSortFields(SortOrder sortOrder) {
+			return ImmutableList.of(
+				SortUtils.luceneSortField(
+					this, sortOrder, SortField.Type.LONG,
+					Operation.DATE
+				)			
+			);
+		}
+		@Override
+		public SortOrder getDefaultOrder() {
+			return SortOrder.DESC;
+		}
+	},
+
+	MONTANT {
+		@Override
+		public List<SortField> getSortFields(SortOrder sortOrder) {
+			return ImmutableList.of(
+				SortUtils.luceneSortField(
+					this, sortOrder, SortField.Type.LONG,
+					Operation.MONTANT
+				)			
+			);
+		}
+		@Override
+		public SortOrder getDefaultOrder() {
+			return SortOrder.DESC;
+		}
 	};
 
 }

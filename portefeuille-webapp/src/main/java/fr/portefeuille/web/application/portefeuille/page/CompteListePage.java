@@ -13,8 +13,6 @@ import org.iglooproject.wicket.markup.html.basic.CoreLabel;
 import org.iglooproject.wicket.more.link.descriptor.IPageLinkDescriptor;
 import org.iglooproject.wicket.more.link.descriptor.builder.LinkDescriptorBuilder;
 import org.iglooproject.wicket.more.markup.html.basic.EnclosureContainer;
-import org.iglooproject.wicket.more.markup.html.sort.SortIconStyle;
-import org.iglooproject.wicket.more.markup.html.sort.TableSortLink.CycleMode;
 import org.iglooproject.wicket.more.markup.repeater.table.builder.DataTableBuilder;
 import org.iglooproject.wicket.more.markup.repeater.table.column.AbstractCoreColumn;
 import org.iglooproject.wicket.more.model.BindingModel;
@@ -26,16 +24,16 @@ import fr.portefeuille.web.application.common.renderer.CommonRenderers;
 import fr.portefeuille.web.application.portefeuille.model.CompteDataProvider;
 import fr.portefeuille.web.application.portefeuille.template.CompteTemplate;
 
-public class CompteListPage extends CompteTemplate {
+public class CompteListePage extends CompteTemplate {
 
 	private static final long serialVersionUID = -85288656017529091L;
 	
 	public static final IPageLinkDescriptor linkDescriptor() {
 		return LinkDescriptorBuilder.start()
-			.page(CompteListPage.class);
+			.page(CompteListePage.class);
 	}
 
-	public CompteListPage(PageParameters parameters) {
+	public CompteListePage(PageParameters parameters) {
 		super(parameters);
 		
 		EnclosureContainer headerElementsSection = new EnclosureContainer("headerElementsSection");
@@ -51,23 +49,21 @@ public class CompteListPage extends CompteTemplate {
 		
 		add(
 			DataTableBuilder.start(compteDataProvider, compteDataProvider.getSortModel())
-				.addLabelColumn(new ResourceModel("business.compte.label"), Bindings.compte().label())
-					.withLink(CompteDetailPage.MAPPER)
-					.withClass("text text-md align-middle")
 				.addColumn(
-						new AbstractCoreColumn<Compte, CompteSort>(new ResourceModel("business.compte.fondsDisponibles")) {
-							private static final long serialVersionUID = 1L;
-							@Override
-							public void populateItem(Item<ICellPopulator<Compte>> cellItem, String componentId, IModel<Compte> rowModel) {
-								cellItem.add(
-									new FondsDisponiblesFragment(componentId, rowModel)
-								);
-							}
+					new AbstractCoreColumn<Compte, CompteSort>(new ResourceModel("business.compte.solde")) {
+						private static final long serialVersionUID = 1L;
+						@Override
+						public void populateItem(Item<ICellPopulator<Compte>> cellItem, String componentId, IModel<Compte> rowModel) {
+							cellItem.add(
+								new FondsDisponiblesFragment(componentId, rowModel)
+							);
 						}
-					)
-				.addLabelColumn(new ResourceModel("business.compte.typeCompte"), Bindings.compte().type())
-				.withSort(CompteSort.TYPE_COMPTE, SortIconStyle.DEFAULT, CycleMode.DEFAULT_REVERSE)
-					.withClass("text text-sm align-middle")
+					}
+				)
+					.withClass("cell-xs")
+				.addLabelColumn(new ResourceModel("business.compte.type"), Bindings.compte().type())
+					.showPlaceholder()
+					.withClass("cell-xs")
 				.bootstrapCard()
 					.ajaxPagers()
 					.count("compte.list.count")
@@ -80,7 +76,7 @@ public class CompteListPage extends CompteTemplate {
 		private static final long serialVersionUID = 1L;
 
 		public FondsDisponiblesFragment(String id, final IModel<Compte> compteModel) {
-			super(id, "fondsDisponiblesFragment", CompteListPage.this);
+			super(id, "fondsDisponiblesFragment", CompteListePage.this);
 
 			IModel<BigDecimal> soldeModel = BindingModel.of(compteModel, Bindings.compte().solde());
 

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.bindgen.Bindable;
 import org.hibernate.search.annotations.Analyzer;
@@ -31,6 +32,7 @@ import org.iglooproject.jpa.search.util.HibernateSearchNormalizer;
 import fr.portefeuille.core.business.portefeuille.model.atomic.OperationStatut;
 import fr.portefeuille.core.business.portefeuille.model.atomic.OperationType;
 import fr.portefeuille.core.business.referencedata.model.OperationCategorie;
+import fr.portefeuille.core.util.search.bridge.BigDecimalNumericFieldBridge;
 
 @Indexed
 @Entity
@@ -42,6 +44,8 @@ public class Operation extends GenericEntity <Long, Operation> {
 
 	public static final String LABEL = "label";
 	public static final String LABEL_SORT = "labelSort";
+
+	public static final String MONTANT = "montant";
 
 	public static final String DATE = "date";
 
@@ -55,6 +59,8 @@ public class Operation extends GenericEntity <Long, Operation> {
 
 	public static final String COMPTE = "compte";
 	public static final String COMPTE_PREFIX = COMPTE + ".";
+	
+	public static final String PORTEFEUILLE = "portefeuille";
 
 	@Id
 	@GeneratedValue
@@ -67,6 +73,8 @@ public class Operation extends GenericEntity <Long, Operation> {
 	private String label;
 
 	@Basic(optional = false)
+	@Field(name = MONTANT, bridge = @FieldBridge(impl = BigDecimalNumericFieldBridge.class))
+	@SortableField(forField = MONTANT)
 	private BigDecimal montant;
 
 	@Basic(optional = false)
@@ -96,6 +104,7 @@ public class Operation extends GenericEntity <Long, Operation> {
 	private Date budgetAffecte;
 
 	@ManyToOne(optional = false)
+	@Field(name = COMPTE, bridge = @FieldBridge(impl = GenericEntityIdFieldBridge.class))
 	private Compte compte;
 
 	@Override
@@ -170,6 +179,12 @@ public class Operation extends GenericEntity <Long, Operation> {
 
 	public void setCompte(Compte compte) {
 		this.compte = compte;
+	}
+
+	@Transient
+	@Field(name = PORTEFEUILLE, bridge = @FieldBridge(impl = GenericEntityIdFieldBridge.class))
+	public Portefeuille getPortefeuille() {
+		return this.getCompte().getPortefeuille();
 	}
 
 }

@@ -14,7 +14,7 @@ public abstract class CompteRenderer extends Renderer<Compte>{
 		private static final long serialVersionUID = 1L;
 		@Override
 		public String render(Compte value, Locale locale) {
-			return value.getLabel();
+			return value.getType().getLabel().getFr();
 		}
 	}.nullsAsNull();
 

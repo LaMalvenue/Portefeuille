@@ -19,7 +19,7 @@ public class CompteComparator extends AbstractGenericEntityComparator<Long, Comp
 	@Override
 	protected int compareNotNullObjects(Compte left, Compte right) {
 		int order = ComparisonChain.start()
-			.compare(left.getLabel(), right.getLabel())
+			.compare(left.getType(), right.getType())
 			.result();
 		if (order == 0) {
 			order = super.compareNotNullObjects(left, right);

@@ -7,7 +7,7 @@ import org.iglooproject.spring.property.service.IPropertyService;
 
 import fr.portefeuille.core.business.portefeuille.service.ICompteService;
 import fr.portefeuille.web.application.common.template.MainTemplate;
-import fr.portefeuille.web.application.portefeuille.page.CompteListPage;
+import fr.portefeuille.web.application.portefeuille.page.CompteListePage;
 
 public class CompteTemplate extends MainTemplate {
 
@@ -25,7 +25,7 @@ public class CompteTemplate extends MainTemplate {
 
 	@Override
 	protected Class<? extends WebPage> getFirstMenuPage() {
-		return CompteListPage.class;
+		return CompteListePage.class;
 	}
 
 }

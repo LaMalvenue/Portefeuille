@@ -8,8 +8,6 @@ import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,14 +18,16 @@ import org.bindgen.Bindable;
 import org.hibernate.annotations.SortComparator;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.SortableField;
 import org.iglooproject.commons.util.collections.CollectionUtils;
 import org.iglooproject.jpa.business.generic.model.GenericEntity;
+import org.iglooproject.jpa.search.bridge.GenericEntityIdFieldBridge;
 
 import fr.portefeuille.core.business.common.model.Montant;
-import fr.portefeuille.core.business.portefeuille.model.atomic.CompteType;
 import fr.portefeuille.core.business.portefeuille.model.comparator.OperationComparator;
+import fr.portefeuille.core.business.referencedata.model.CompteType;
 
 @Indexed
 @Entity
@@ -48,18 +48,14 @@ public class Compte extends GenericEntity<Long, Compte> {
 	@ManyToOne(optional = false)
 	private Portefeuille portefeuille;
 
-	@Basic
-	private String label;
-	
 	@Basic(optional = false)
 	@Column(precision = Montant.PRECISION, scale = Montant.SCALE)
 	@Field(name = SOLDE)
 	@SortableField(forField = SOLDE)
 	private BigDecimal solde;
 	
-	@Basic(optional = false)
-	@Enumerated(EnumType.STRING)
-	@Field(name = TYPE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@Field(name = TYPE, bridge = @FieldBridge(impl = GenericEntityIdFieldBridge.class))
 	@SortableField(forField = TYPE)
 	private CompteType type;
 	
@@ -78,15 +74,16 @@ public class Compte extends GenericEntity<Long, Compte> {
 		this.id = id;
 	}
 
-	public String getLabel() {
-		return label;
+	public Portefeuille getPortefeuille() {
+		return portefeuille;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
+	public void setPortefeuille(Portefeuille portefeuille) {
+		this.portefeuille = portefeuille;
 	}
 
 	public BigDecimal getSolde() {
+		operations.stream().forEach(o -> solde.add(o.getMontant()));
 		return solde;
 	}
 

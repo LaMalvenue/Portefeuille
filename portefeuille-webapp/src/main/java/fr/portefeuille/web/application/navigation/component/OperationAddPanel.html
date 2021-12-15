@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+	<wicket:panel>
+		<div class="card card-page">
+			<div class="card-header">
+				<h5 class="card-header-title" >
+					<wicket:message key="homePage.operations.add.title" />
+				</h5>
+			</div>
+			<div class="card-body">
+				<div class="row row-xs">
+					<div class="col-12">
+					</div>
+					<div class="col-12">
+						<div class="row row-xs">
+							<div class="col-12">
+								 <div class="row row-xs">
+									<div class="col">
+										<div class="row row-xxs align-items-center">
+											<div class="col-auto" />
+											<div class="col-auto" />
+										</div>
+									</div>
+									<div class="col-auto ml-auto" />
+								</div>
+							</div>
+							<div class="col-12">
+								 <div class="row row-xs">
+									<div class="col">
+										<a>
+											<span/>
+										</a>
+										<span class="text-muted">/</span>
+										<a>
+											<span/>
+										</a>
+									</div>
+									<div class="col-auto ml-auto" />
+								</div>
+							</div>
+						</div>
+						<div class="row row-description">
+							<div class="col-12">
+								<span class="text-muted"><wicket:message key="common.list.empty" /></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<form>>
+					<div class="row row-xs">
+						<div class="col-12">
+							<div class="row row-form">
+								<div class="col-md-6">
+									<div class="input-group">
+										<input class="form-control" type="text" />
+										<label class="input-group-append mb-0">
+											<span class="input-group-text">
+												<span class="fa fa-fw fa-calendar" />
+											</span>
+										</label>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" />
+								</div>
+	 							<div class="col-md-3">
+									<select class="form-control" />
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" />
+								</div>
+								<div class="col-md-3">
+									<select class="form-control" />
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<input class="form-control" type="text" inputmode="numeric" pattern="[O-9]*" />
+										<label class="input-group-append mb-0">
+												<span class="input-group-text">
+												
+												</span>
+										</label>
+									</div>
+								</div>
+								<div class="col-md-9">
+									<input class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="card-footer">
+				<div class="row row-action justify-content-end">
+					<div class="ml-auto col-auto">
+						<button class="btn btn-success" type="button">
+							<span class="fa fa-fw fa-check" />
+							<wicket:message key="common.action.save" />
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</wicket:panel>
+</html>

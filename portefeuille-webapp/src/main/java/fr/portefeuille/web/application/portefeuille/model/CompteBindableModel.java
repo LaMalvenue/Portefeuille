@@ -1,7 +1,6 @@
 package fr.portefeuille.web.application.portefeuille.model;
 
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.iglooproject.functional.Suppliers2;
 import org.iglooproject.wicket.more.bindable.model.BindableModel;
 import org.iglooproject.wicket.more.model.GenericEntityModel;
@@ -17,13 +16,8 @@ public class CompteBindableModel extends BindableModel<Compte> {
 		super(compteModel);
 
 		bindWithCache(
-			Bindings.compte().label(),
-			new Model<>()
-		);
-
-		bindWithCache(
 			Bindings.compte().type(),
-			new Model<>()
+			new GenericEntityModel<>()
 		);
 
 		bindCollectionWithCache(
